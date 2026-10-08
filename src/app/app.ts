@@ -7,9 +7,9 @@ import { JsonPipe } from '@angular/common';
   selector: 'app-root',
   imports: [RouterOutlet, JsonPipe],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
 export class App {
   protected readonly title = signal('gtscRebuild');
-  protected clubInfo = inject(ClubInfoService)
+  protected clubInfo = inject(ClubInfoService);
 }

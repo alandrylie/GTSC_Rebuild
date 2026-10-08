@@ -1,4 +1,4 @@
-import { Session } from "./session";
+import { Session } from './session';
 export interface Schedule {
-    sessions: Session[]
+  sessions: Session[];
 }

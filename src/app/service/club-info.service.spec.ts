@@ -16,7 +16,7 @@ describe('ClubInfoService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [{provide: Firestore, useValue: {}}]
+      providers: [{ provide: Firestore, useValue: {} }],
     });
     service = TestBed.inject(ClubInfoService);
   });
