@@ -46,6 +46,21 @@ A modern, mobile-friendly club website that makes joining quick, gives members t
 - An admin can update club info without using the Firebase console.
 - The site is live on Firebase Hosting by 3pm, Sat 17 Oct 2026.
 
+## Timeline
+
+| When                | Goal                                                     |
+| ------------------- | -------------------------------------------------------- |
+| **Wed 7 Oct**       | Club info service + schedule showing live from Firestore |
+| **Thu 8 – Fri 9**   | Login + members-only area                                |
+| **Sat 10 – Sun 11** | Member messaging (full CRUD)                             |
+| **Mon 12 – Tue 13** | AI club assistant (Gemini)                               |
+| **Wed 14**          | Household membership form                                |
+| **Thu 15**          | Security rules + mobile polish                           |
+| **Fri 16**          | Deploy to Firebase Hosting + buffer for fixes            |
+| **Sat 17**          | Hand in by 3pm                                           |
+
+Login comes early because messaging needs a user ID. Deploying a day early leaves room for fixes.
+
 ## Open Questions
 
 - Should the AI assistant be public or members-only?
