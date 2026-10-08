@@ -15,11 +15,11 @@ A modern, mobile-friendly club website that makes joining quick, gives members t
 
 ## Who It's For
 
-| User         | What they need                                                                                              |
-| ------------ | ----------------------------------------------------------------------------------------------------------- |
-| **Visitors** | Find club info (hours, fees, disciplines) and apply to join                                                 |
-| **Members**  | Log in, message other members, use the club assistant                                                       |
-| **Admins**   | Edit club info from the site, each with access only to what they look after (e.g. the treasurer edits fees) |
+| User         | What they need                                                                                        |
+| ------------ | ----------------------------------------------------------------------------------------------------- |
+| **Visitors** | Find club info (hours, fees, disciplines) and apply to join                                           |
+| **Members**  | Log in, message other members, use the club assistant                                                 |
+| **Admins**   | Edit club info from the site, with access set by their committee role (e.g. the treasurer edits fees) |
 
 ## Features (in priority order)
 
@@ -33,6 +33,17 @@ A modern, mobile-friendly club website that makes joining quick, gives members t
 - Works well on mobile and desktop.
 - Modern look.
 - Data protected by security rules.
+
+## Access by Role
+
+Permissions come from a person's committee role, not from the person. When someone changes role, the web admin moves the role and the access follows.
+
+| Role               | Can manage                  |
+| ------------------ | --------------------------- |
+| **Web admin**      | the Secretary               |
+| **Secretary**      | executive committee members |
+| **Exec committee** | general committee members   |
+| **Treasurer**      | fees                        |
 
 ## Out of Scope (for 17 Oct)
 
