@@ -1,7 +1,16 @@
 /* Mobile first: these are the phone styles. Larger screens are added below with min-width. */
 
+/* Dark slate fills either side when the screen is wider than the hero (ultra-wides) */
+:host {
+  display: block;
+  background: #263238;
+}
+
 .hero {
   position: relative;
+  /* Capped at 1600px so wide screens don't crop the pistol to a thin strip */
+  max-width: 1600px;
+  margin-inline: auto;
   display: grid;
   place-items: center;
   min-height: 280px;
