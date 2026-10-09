@@ -94,3 +94,9 @@ Club info in Firestore is the single source of truth. Both the pages and the AI 
 - Firebase Auth with email and password.
 - `AuthService` (`src/app/service/auth.service.ts`) exposes the current user as a signal (`userSignal`), plus `login()` and `logout()`.
 - Access is role-based. A person's committee `position[]` decides what they can edit.
+
+## Hosting
+
+- Firebase Hosting (main). An IONOS subdomain is the preferred submission address if it works.
+- The site is a **single-page application**: the browser loads one `index.html`, and Angular's router swaps page components in and out without a full reload.
+- **Deploy note:** answer "yes" to _"Configure as a single-page app?"_ during `firebase init hosting`. It adds a rewrite that sends every URL to `index.html`, so refreshing on a page like `/range-times` works instead of returning a 404.
