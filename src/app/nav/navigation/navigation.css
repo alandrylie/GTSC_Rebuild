@@ -1,0 +1,56 @@
+/* ---------- Phone first ---------- */
+
+/* The container fills the screen, so the page scrolls inside
+   mat-sidenav-content rather than the whole window */
+mat-sidenav-container {
+  height: 100dvh;
+}
+
+.drawer {
+  width: 280px;
+}
+
+/* routerLinkActive adds this class to the link for the current page */
+.active-link {
+  background: #e3e8ee;
+}
+
+.active-link [matListItemTitle] {
+  font-weight: 500;
+}
+
+/* Material reads these tokens to colour and size the toolbar.
+   Sticky keeps it pinned to the top while the page scrolls under it. */
+mat-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  --mat-toolbar-container-background-color: #263238;
+  --mat-toolbar-container-text-color: #fff;
+  --mat-toolbar-standard-height: 56px;
+  --mat-toolbar-mobile-height: 56px;
+
+  gap: 8px;
+  padding: 0 8px;
+}
+
+/* Material sets the icon button colour itself, so match it to the bar text */
+mat-toolbar button {
+  color: inherit;
+}
+
+.brand {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+/* ---------- Tablet and up ---------- */
+@media (min-width: 768px) {
+  mat-toolbar {
+    --mat-toolbar-standard-height: 64px;
+    --mat-toolbar-mobile-height: 64px;
+
+    padding: 0 16px;
+  }
+}

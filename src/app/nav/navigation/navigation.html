@@ -1,0 +1,63 @@
+<mat-sidenav-container>
+  <mat-sidenav class="drawer" #drawer>
+    <mat-nav-list>
+      <a
+        mat-list-item
+        [routerLink]="['/', routes.home]"
+        routerLinkActive="active-link"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="drawer.close()"
+      >
+        <mat-icon matListItemIcon>home</mat-icon>
+        <span matListItemTitle>Home</span>
+      </a>
+      <a
+        mat-list-item
+        [routerLink]="['/', routes.disciplines]"
+        routerLinkActive="active-link"
+        (click)="drawer.close()"
+      >
+        <mat-icon matListItemIcon>target</mat-icon>
+        <span matListItemTitle>Disciplines</span>
+      </a>
+      <a
+        mat-list-item
+        [routerLink]="['/', routes.rangeTimes]"
+        routerLinkActive="active-link"
+        (click)="drawer.close()"
+      >
+        <mat-icon matListItemIcon>calendar_month</mat-icon>
+        <span matListItemTitle>Range Times</span>
+      </a>
+      <a
+        mat-list-item
+        [routerLink]="['/', routes.join]"
+        routerLinkActive="active-link"
+        (click)="drawer.close()"
+      >
+        <mat-icon matListItemIcon>person_add</mat-icon>
+        <span matListItemTitle>Join Us</span>
+      </a>
+      <a
+        mat-list-item
+        [routerLink]="['/', routes.contact]"
+        routerLinkActive="active-link"
+        (click)="drawer.close()"
+      >
+        <mat-icon matListItemIcon>mail</mat-icon>
+        <span matListItemTitle>Contact Us</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar>
+      <button matIconButton (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="brand">GTSC</span>
+    </mat-toolbar>
+
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>
