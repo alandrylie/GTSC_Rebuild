@@ -1,0 +1,93 @@
+/* Mobile first: these are the phone styles. Larger screens are added below with min-width. */
+
+.hero {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 280px;
+  overflow: hidden;
+  color: #fff;
+  text-align: center;
+}
+
+/* Photo fills the header and crops to fit; object-position chooses which part stays in view (x% y%) */
+.hero-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 40% 38%;
+}
+
+/* Dark overlay so white text stays readable on the light wood */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgb(0 0 0 / 55%), rgb(0 0 0 / 70%));
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 900px;
+  padding: 24px 16px;
+}
+
+/* Badge pinned to the top-left corner, above the overlay */
+.hero-logo {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 1;
+  width: 64px;
+  height: 64px;
+}
+
+.hero-title {
+  margin: 0;
+  font: var(--mat-sys-headline-medium);
+}
+
+/* Tablet */
+@media (min-width: 600px) {
+  .hero {
+    min-height: 340px;
+  }
+
+  .hero-logo {
+    top: 12px;
+    left: 12px;
+    width: 96px;
+    height: 96px;
+  }
+
+  .hero-title {
+    font: var(--mat-sys-display-small);
+  }
+}
+
+/* Laptop */
+@media (min-width: 1024px) {
+  .hero {
+    min-height: 400px;
+  }
+
+  .hero-logo {
+    top: 2px;
+    left: 2px;
+    width: 120px;
+    height: 120px;
+  }
+
+  .hero-title {
+    font: var(--mat-sys-display-medium);
+  }
+}
