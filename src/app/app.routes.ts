@@ -5,6 +5,7 @@ import { Disciplines } from './pages/disciplines/disciplines';
 import { JoinUs } from './pages/join-us/join-us';
 import { RangeTimes } from './pages/range-times/range-times';
 import { ContactUs } from './pages/contact-us/contact-us';
+import { Login } from './pages/login/login';
 
 export const routes: Routes = [
   { path: APP_ROUTES.home, component: Home },
@@ -12,5 +13,6 @@ export const routes: Routes = [
   { path: APP_ROUTES.rangeTimes, component: RangeTimes },
   { path: APP_ROUTES.join, component: JoinUs },
   { path: APP_ROUTES.contact, component: ContactUs },
+  { path: APP_ROUTES.login, component: Login},
   { path: '**', redirectTo: APP_ROUTES.home },
 ];

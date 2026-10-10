@@ -17,6 +17,16 @@ html {
       density: 0,
     )
   );
+
+  // Swap the azure primary for the toolbar's dark slate so buttons, focus rings
+  // and highlights match the nav. light-dark() gives a lighter slate for dark mode later.
+  // Temporary until the committee agrees the site colours.
+  @include mat.theme-overrides(
+    (
+      primary: light-dark(#263238, #b0bec5),
+      on-primary: light-dark(#ffffff, #263238),
+    )
+  );
 }
 
 body {

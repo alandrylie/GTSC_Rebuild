@@ -1,0 +1,11 @@
+<form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+    <label for="email">Email: </label>
+    <input id="email" type="email" placeholder="Enter Email" formControlName="email" autocomplete="email">
+    <label for="password">Password: </label>
+    <input id="password" type="password" placeholder="Enter Password" formControlName="password" autocomplete="current-password">
+    <button matButton="filled" type="submit" [disabled]="loginForm.invalid">Log in</button>
+    @if(errorMessage()){
+        <p role="alert">{{errorMessage()}}</p>
+    }
+
+</form>
