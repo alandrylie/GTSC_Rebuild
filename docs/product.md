@@ -59,16 +59,17 @@ Permissions come from a person's committee role, not from the person. When someo
 
 ## Timeline
 
-| When                | Goal                                                     |
-| ------------------- | -------------------------------------------------------- |
-| **Wed 7 Oct**       | Club info service + schedule showing live from Firestore |
-| **Thu 8 – Fri 9**   | Login + members-only area                                |
-| **Sat 10 – Sun 11** | Member messaging (full CRUD)                             |
-| **Mon 12 – Tue 13** | AI club assistant (Gemini)                               |
-| **Wed 14**          | Household membership form                                |
-| **Thu 15**          | Security rules + mobile polish                           |
-| **Fri 16**          | Deploy to Firebase Hosting + buffer for fixes            |
-| **Sat 17**          | Hand in by 3pm                                           |
+| When                | Goal                                                          |
+| ------------------- | ------------------------------------------------------------- |
+| **Wed 7 Oct**       | Club info service + schedule showing live from Firestore      |
+| **Thu 8 – Sat 10**  | Login + members-only club area (guard, logout)                |
+| **Sun 11 – Mon 12** | Member messaging (full CRUD)                                  |
+| **Tue 13 – Wed 14** | AI club assistant (Gemini)                                    |
+| **Thu 15**          | Household membership form (trimmed) + security rules          |
+| **Fri 16**          | Deploy to Firebase Hosting + mobile polish + buffer for fixes |
+| **Sat 17**          | Hand in by 3pm                                                |
+
+_Re-planned Sat 10 Oct: login ran a day over, so later features moved along by a day._
 
 Login comes early because messaging needs a user ID. Deploying a day early leaves room for fixes.
 

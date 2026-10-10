@@ -31,11 +31,10 @@ export class Login {
         this.loginForm.getRawValue().password,
       );
       this.loginForm.reset();
-      this.router.navigate(['.', APP_ROUTES.home])
+      this.router.navigate(['/', APP_ROUTES.clubArea]);
     } catch (error) {
       console.error(error);
       this.errorMessage.set('Email or password is incorrect please try again.');
     }
-
   }
 }
