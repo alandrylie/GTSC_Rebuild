@@ -48,15 +48,32 @@
         <span matListItemTitle>Contact Us</span>
       </a>
       <mat-divider></mat-divider>
-      <a
-        mat-list-item
-        [routerLink]="['/', routes.login]"
-        routerLinkActive="active-link"
-        (click)="drawer.close()"
-      >
-        <mat-icon matListItemIcon>account_circle</mat-icon>
-        <span matListItemTitle>Members Login</span>
-      </a>
+      @if (signedInUser()) {
+        <a
+          mat-list-item
+          [routerLink]="['/', routes.clubArea]"
+          routerLinkActive="active-link"
+          (click)="drawer.close()"
+        >
+          <mat-icon matListItemIcon>dashboard</mat-icon>
+          <span matListItemTitle>Club Area</span>
+        </a>
+        <!-- A button, not a link: logging out is an action, not a page -->
+        <button mat-list-item (click)="logOut(); drawer.close()">
+          <mat-icon matListItemIcon>logout</mat-icon>
+          <span matListItemTitle>Log out</span>
+        </button>
+      } @else {
+        <a
+          mat-list-item
+          [routerLink]="['/', routes.login]"
+          routerLinkActive="active-link"
+          (click)="drawer.close()"
+        >
+          <mat-icon matListItemIcon>account_circle</mat-icon>
+          <span matListItemTitle>Members Login</span>
+        </a>
+      }
     </mat-nav-list>
   </mat-sidenav>
 
