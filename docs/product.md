@@ -15,17 +15,17 @@ A modern, mobile-friendly club website that makes joining quick, gives members t
 
 ## Who It's For
 
-| User         | What they need                                                                                        |
-| ------------ | ----------------------------------------------------------------------------------------------------- |
-| **Visitors** | Find club info (hours, fees, disciplines) and apply to join                                           |
-| **Members**  | Log in, message other members, use the club assistant                                                 |
-| **Admins**   | Edit club info from the site, with access set by their committee role (e.g. the treasurer edits fees) |
+| User                          | What they need                                                                                        |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------- |
+| **Visitors**                  | Find club info (hours, fees, disciplines) and apply to join                                           |
+| **Range officers & officers** | Log in to the club area, message each other, use the club assistant                                   |
+| **Admins**                    | Edit club info from the site, with access set by their committee role (e.g. the treasurer edits fees) |
 
 ## Features (in priority order)
 
-1. **Members login area:** members sign in to reach members-only pages.
+1. **Club area login:** range officers and officers sign in to reach the club area. For now, only they get accounts.
 2. **AI club assistant:** answers questions using up-to-date club info.
-3. **Member messaging:** members create, read, edit and delete their own messages.
+3. **Range officer messaging:** range officers and officers create, read, edit and delete their own messages.
 4. **Household membership application:** one form covers a whole household, adults and juniors.
 
 **Applies to every feature:**
@@ -48,7 +48,7 @@ Permissions come from a person's committee role, not from the person. When someo
 ## Out of Scope (for 17 Oct)
 
 - **Stretch goals:** better picture gallery, demo club shop, and if time permits, host the demo on IONOS as a subdomain of gtsc.co.uk.
-- **Future:** automatic email to two club addresses when someone applies.
+- **Future:** automatic email to two club addresses when someone applies. Logins for general members, with a sign-up page and an officer approving each account.
 
 ## What "Done" Looks Like
 
@@ -63,7 +63,7 @@ Permissions come from a person's committee role, not from the person. When someo
 | ------------------- | ------------------------------------------------------------- |
 | **Wed 7 Oct**       | Club info service + schedule showing live from Firestore      |
 | **Thu 8 – Sat 10**  | Login + members-only club area (guard, logout)                |
-| **Sun 11 – Mon 12** | Member messaging (full CRUD)                                  |
+| **Sun 11 – Mon 12** | Range officer messaging (full CRUD)                           |
 | **Tue 13 – Wed 14** | AI club assistant (Gemini)                                    |
 | **Thu 15**          | Household membership form (trimmed) + security rules          |
 | **Fri 16**          | Deploy to Firebase Hosting + mobile polish + buffer for fixes |
