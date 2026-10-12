@@ -1,0 +1,20 @@
+<div class="bubble">
+  <p class="text">{{ message().text }}</p>
+  <p class="author">{{ message().authorName }}</p>
+  <p class="time">{{ message().createdAt?.toDate() | date: 'HH:mm dd/MM/yy' }}</p>
+  @if (isMine()) {
+    <button matIconButton [matMenuTriggerFor]="messageMenu" aria-label="Message options">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #messageMenu="matMenu">
+      <button mat-menu-item (click)="editMessage()">
+        <mat-icon>edit</mat-icon>
+        <span>Edit</span>
+      </button>
+      <button mat-menu-item (click)="deleteMessage()">
+        <mat-icon>delete</mat-icon>
+        <span>Delete</span>
+      </button>
+    </mat-menu>
+  }
+</div>

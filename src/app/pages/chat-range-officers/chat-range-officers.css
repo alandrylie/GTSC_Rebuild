@@ -1,0 +1,47 @@
+/* ---------- Phone first ---------- */
+
+/* The chat column: messages stacked with a small gap.
+   min-height fills the screen under the 56px toolbar, so the compose bar
+   can sit at the bottom even when there are only a few messages. */
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  box-sizing: border-box;
+  min-height: calc(100dvh - 56px);
+}
+
+/* Loading and "no messages" text */
+p {
+  margin: 0;
+  font: var(--mat-sys-body-medium);
+  color: var(--mat-sys-on-surface-variant);
+}
+
+/* The compose bar:
+   - margin-top: auto pushes it to the bottom of the column
+   - sticky keeps it on screen while the messages scroll
+   - negative side/bottom margins stretch it over the page padding, edge to edge */
+app-chat-message-create {
+  position: sticky;
+  bottom: 0;
+  margin: auto -16px -16px;
+}
+
+/* ---------- Tablet and up ---------- */
+@media (min-width: 768px) {
+  /* Keep the chat a readable width on wide screens.
+     The toolbar is 64px tall from here up. */
+  :host {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 24px;
+    min-height: calc(100dvh - 64px);
+  }
+
+  /* Match the bigger page padding */
+  app-chat-message-create {
+    margin: auto -24px -24px;
+  }
+}

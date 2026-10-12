@@ -1,0 +1,110 @@
+/* ---------- Phone first ---------- */
+
+/* One row per message. Other people's bubbles sit on the left */
+:host {
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* Your own messages (class="mine" is added by the component) sit on the right */
+:host(.mine) {
+  justify-content: flex-end;
+}
+
+/* The bubble: text on top, name and time on one line underneath */
+.bubble {
+  position: relative; /* lets the tail be placed against the bubble */
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    'text   text'
+    'author time';
+  gap: 4px 12px;
+  max-width: 85%;
+  padding: 10px 14px;
+  border-radius: 16px 16px 16px 0; /* square corner where the tail joins */
+  margin-left: 10px; /* room for the tail */
+  background: var(--mat-sys-surface-container-high);
+  color: var(--mat-sys-on-surface);
+}
+
+/* Your bubble: primary colours, tail on the right instead */
+:host(.mine) .bubble {
+  border-radius: 16px 16px 0 16px;
+  margin-left: 0;
+  margin-right: 10px;
+  background: var(--mat-sys-primary-container);
+  color: var(--mat-sys-on-primary-container);
+
+  /* A third column on the bottom line for the ⋮ menu button */
+  grid-template-columns: 1fr auto auto;
+  grid-template-areas:
+    'text   text text'
+    'author time menu';
+  align-items: center;
+}
+
+/* The ⋮ button: smaller than Material's default 40px so it doesn't
+   stretch the bubble. Negative margins tuck it into the corner padding. */
+.bubble button {
+  grid-area: menu;
+  margin: -8px -10px -8px -6px;
+  --mat-icon-button-state-layer-size: 32px;
+  --mat-icon-button-icon-size: 20px;
+  --mat-icon-button-icon-color: currentColor; /* match the bubble text */
+}
+
+/* The tail ("flick"): a small square in the bubble's colour,
+   with a circle cut out of it so the edge curves */
+.bubble::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: -10px;
+  width: 10px;
+  height: 14px;
+  background: inherit;
+  mask: radial-gradient(circle at 0 0, transparent 10px, #000 10.5px);
+}
+
+/* Your tail: mirrored to the right-hand side */
+:host(.mine) .bubble::after {
+  left: auto;
+  right: -10px;
+  mask: radial-gradient(circle at 100% 0, transparent 10px, #000 10.5px);
+}
+
+/* Remove the default <p> spacing; the grid gap handles it */
+.bubble p {
+  margin: 0;
+}
+
+/* The message itself: keeps the RO's line breaks, wraps long words */
+.text {
+  grid-area: text;
+  font: var(--mat-sys-body-large);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* Who sent it */
+.author {
+  grid-area: author;
+  font: var(--mat-sys-label-medium);
+  color: var(--mat-sys-primary);
+}
+
+/* When it was sent (blank for a moment until the server stamps the time) */
+.time {
+  grid-area: time;
+  font: var(--mat-sys-label-small);
+  opacity: 0.75;
+  text-align: right;
+}
+
+/* ---------- Tablet and up ---------- */
+@media (min-width: 768px) {
+  .bubble {
+    max-width: 60%;
+  }
+}

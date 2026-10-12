@@ -1,0 +1,17 @@
+<div>
+  <form [formGroup]="chatMessageSend" (ngSubmit)="submitMessage()">
+    <mat-form-field appearance="outline" subscriptSizing="dynamic" hideRequiredMarker>
+      <mat-label>Enter message</mat-label>
+      <textarea
+        matInput
+        id="text"
+        formControlName="text"
+        placeholder="Enter the message here."
+        cdkTextareaAutosize
+        cdkAutosizeMinRows="1"
+        cdkAutosizeMaxRows="5"
+      ></textarea>
+    </mat-form-field>
+    <button matButton="filled" type="submit" [disabled]="chatMessageSend.invalid">Send</button>
+  </form>
+</div>

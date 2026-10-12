@@ -1,0 +1,18 @@
+@if (chatMessages() === null) {
+  <p>Loading !!!</p>
+} @else {
+  @for (message of chatMessages(); track message.id) {
+    <app-chat-message-row
+      [message]="message"
+      [isMine]="message.authorUid === currentUid()"
+      (sendDelete)="sendDeleteChatMessage($event)"
+      (sendEdit)="sendEditChatMessage($event)"
+    />
+  } @empty {
+    <p>There is no chat Messages</p>
+  }
+}
+@if (errorMessage()) {
+  <p role="alert">{{ errorMessage() }}</p>
+}
+<app-chat-message-create (sendMessage)="sendChatMessage($event)" />

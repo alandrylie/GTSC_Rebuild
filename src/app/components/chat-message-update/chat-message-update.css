@@ -1,0 +1,21 @@
+/* ---------- Phone first ---------- */
+
+/* The text box fills the dialog's width */
+mat-form-field {
+  width: 100%;
+}
+
+/* Room for the floating label: the dialog content scrolls, so it clips
+   anything poking above its top edge. Material sets the first child's
+   margin-top to 0, so this selector is more specific to win. */
+mat-dialog-content mat-form-field {
+  margin-top: 8px;
+}
+
+/* ---------- Tablet and up ---------- */
+@media (min-width: 768px) {
+  /* A bit more room to edit on bigger screens */
+  mat-form-field {
+    min-width: 400px;
+  }
+}

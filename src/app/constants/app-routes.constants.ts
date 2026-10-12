@@ -7,6 +7,7 @@ export const APP_ROUTES = (() => {
     contact: 'contact-info',
     login: 'login',
     clubArea: 'club-area',
+    roChat: 'ro-chat',
   };
   return Object.freeze(routes);
 })();

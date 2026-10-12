@@ -1,0 +1,36 @@
+/* ---------- Phone first ---------- */
+
+/* The compose bar: a solid strip so messages scrolling behind it are hidden.
+   Where it sits on the page (sticky at the bottom) is set by the page itself. */
+:host {
+  display: block;
+  padding: 8px 16px 12px;
+  background: var(--mat-sys-surface);
+  border-top: 1px solid var(--mat-sys-outline-variant);
+}
+
+/* Text box and Send button side by side, button lined up with the bottom
+   of the box so it stays put as the box grows */
+form {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+/* The text box takes all the space the button doesn't need */
+mat-form-field {
+  flex: 1;
+}
+
+/* The box is 56px tall and the button 40px, so 8px lifts the button
+   to sit centred against a one-line box */
+button {
+  margin-bottom: 8px;
+}
+
+/* ---------- Tablet and up ---------- */
+@media (min-width: 768px) {
+  :host {
+    padding: 12px 24px 16px;
+  }
+}

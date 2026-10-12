@@ -1,0 +1,28 @@
+<form [formGroup]="updateChatMessage" (ngSubmit)="submitUpdate()">
+  <h2 mat-dialog-title>Edit message</h2>
+  <mat-dialog-content>
+    <mat-form-field appearance="outline" subscriptSizing="dynamic" hideRequiredMarker>
+      <mat-label>Update message</mat-label>
+      <textarea
+        matInput
+        id="text"
+        formControlName="text"
+        placeholder="Enter the message here."
+        cdkTextareaAutosize
+        cdkAutosizeMinRows="1"
+        cdkAutosizeMaxRows="5"
+      ></textarea>
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <!-- type="button" so Cancel doesn't submit the form; closes with nothing -->
+    <button matButton type="button" mat-dialog-close>Cancel</button>
+    <button
+      matButton="filled"
+      type="submit"
+      [disabled]="updateChatMessage.invalid || isUnchanged()"
+    >
+      Update
+    </button>
+  </mat-dialog-actions>
+</form>
