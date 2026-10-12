@@ -63,12 +63,14 @@ Ultra-wide screens get the laptop layout. No extra breakpoint is planned, but wi
 
 ```
 src/app/
+  components/  pieces used inside pages (chat message row, chat message form)
   constants/   shared constants (APP_ROUTES)
-  header/      hero header
+  guards/      route guards (authGuard)
+  layout/      the frame around every page: navigation, hero header
   model/       TypeScript interfaces for Firestore data
-  nav/         navigation
   pages/       one folder per routed page
   service/     services (the only place that talks to Firebase)
+  shared/      reusable bits (confirm dialog)
 public/images/ images served by the site
 docs/          product and technical docs
 ```

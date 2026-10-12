@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ClubInfoService } from './service/club-info.service';
-import { Navigation } from './nav/navigation/navigation';
+import { Navigation } from './layout/navigation/navigation';
 
 @Component({
   selector: 'app-root',
