@@ -1,0 +1,139 @@
+/* ---------- Phone first ---------- */
+
+/* The content column under the hero */
+.home {
+  display: grid;
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 16px 40px;
+}
+
+/* ----- Intro: "Founded 1969", the club name, and its approvals ----- */
+.intro {
+  text-align: center;
+}
+
+/* Small label above the heading, like a badge */
+.founded {
+  display: inline-block;
+  margin: 0 0 8px;
+  padding: 4px 12px;
+  border-radius: 999px; /* pill shape */
+  background: var(--mat-sys-primary-container);
+  color: var(--mat-sys-on-primary-container);
+  font: var(--mat-sys-label-large);
+  letter-spacing: 0.5px;
+}
+
+.intro h2 {
+  margin: 0 0 16px;
+  font: var(--mat-sys-headline-small);
+  color: var(--mat-sys-on-surface);
+}
+
+/* Short club history under the heading; max-width keeps the line easy to read */
+.history {
+  max-width: 60ch;
+  margin: 0 auto 16px;
+  font: var(--mat-sys-body-large);
+  color: var(--mat-sys-on-surface-variant);
+}
+
+/* The two approvals, each with a tick, stacked on phones */
+.credentials {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  justify-items: center;
+}
+
+.credentials li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font: var(--mat-sys-body-large);
+  color: var(--mat-sys-on-surface-variant);
+  text-align: left;
+}
+
+/* Tick drawn with CSS, so no icon import is needed */
+.credentials li::before {
+  content: '✓';
+  flex-shrink: 0;
+  color: var(--mat-sys-primary);
+  font-weight: 700;
+}
+
+/* ----- Cards ----- */
+
+/* Cards stacked on phones */
+.cards {
+  display: grid;
+  gap: 16px;
+}
+
+/* One card per topic. The slate stripe on the left ties it to the toolbar colour. */
+.info-card {
+  padding: 20px;
+  border-left: 4px solid var(--mat-sys-primary);
+  border-radius: 12px;
+  background: var(--mat-sys-surface-container-low);
+  color: var(--mat-sys-on-surface);
+  box-shadow: var(--mat-sys-level1);
+}
+
+.info-card h2 {
+  margin: 0 0 8px;
+  font: var(--mat-sys-title-large);
+  color: var(--mat-sys-primary);
+}
+
+.info-card p {
+  margin: 0;
+  font: var(--mat-sys-body-large);
+  color: var(--mat-sys-on-surface-variant);
+}
+
+/* Space between two paragraphs in the same card */
+.info-card p + p {
+  margin-top: 12px;
+}
+
+/* The access warning: its own tinted box so it stands out from the rest of the card */
+.info-card .access-note {
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: var(--mat-sys-secondary-container);
+  color: var(--mat-sys-on-secondary-container);
+}
+/* ---------- Tablet and up ---------- */
+@media (min-width: 768px) {
+  .home {
+    gap: 32px;
+    padding: 40px 24px 56px;
+  }
+
+  .intro h2 {
+    font: var(--mat-sys-headline-medium);
+  }
+
+  /* Approvals side by side */
+  .credentials {
+    grid-auto-flow: column;
+    justify-content: center;
+    gap: 32px;
+  }
+
+  /* Four cards as a 2 x 2 grid (kept on laptops too: four in a row is too narrow to read) */
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .info-card {
+    padding: 24px 28px;
+  }
+}
