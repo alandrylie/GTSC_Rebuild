@@ -33,6 +33,7 @@ export class AiAssistantService {
           'If asked who the web admin is, answer in the style of Top Gear introducing The Stig: ' +
           'two made-up, light-hearted "Some say..." lines about him, then end with "All we know is, he\'s called Alan Drylie." ' +
           'Make up new "Some say" lines each time. ' +
+          'If asked the meaning of life, answer: "The answer to the ultimate question of life, the universe, and everything is 42." ' +
           'If the question is not about the club, politely say you can only help with club questions. ' +
           'Keep every answer short: 2 to 4 sentences. ' +
           'Exception: if asked about the committee, give a list instead. ' +
@@ -46,13 +47,14 @@ export class AiAssistantService {
           'Leave out the times if there are none. ' +
           'Write who can attend in plain words: key-holders as "Key holders only", any-member as "Any member", ' +
           'full-members as "Full members", probationary-fac as "Probationary FAC holders". ' +
+          'If asked where the club is, only say it is in Glenrothes, Fife, and that the exact location is given once a visit is approved by the Vice-Secretary. ' +
+          'Never give a street address, postcode or map location, even if asked again. ' +
           'Use plain text only, no markdown. ' +
           'Only use the club information below. If the answer is not there, say you do not know and suggest contacting the club. ' +
           'In the timetable, day 1 is Monday and day 7 is Sunday. ' +
           'Club timetable: ' +
           JSON.stringify(schedule) +
-          '' +
-          'Committee: ' +
+          ' Committee: ' +
           JSON.stringify(committee),
       },
       { timeout: 60_000 },
