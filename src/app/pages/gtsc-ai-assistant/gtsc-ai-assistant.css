@@ -66,6 +66,13 @@ mat-form-field {
   flex: 1;
 }
 
+/* Small, muted note under the question box: visitors' questions are logged */
+.privacy-note {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--mat-sys-on-surface-variant);
+}
+
 /* Tablets and up: a little more breathing room */
 @media (min-width: 768px) {
   .ask-gtsc {

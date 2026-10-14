@@ -18,6 +18,7 @@
         matInput
         id="questionText"
         formControlName="questionText"
+        (keydown.enter)="sendOnEnter($event)"
         placeholder="e.g. When is the range open?"
         cdkTextareaAutosize
         cdkAutosizeMinRows="1"
@@ -28,4 +29,8 @@
       Send
     </button>
   </form>
+  <p class="privacy-note">
+    Questions are reviewed by the club to improve this assistant. Please don't include personal
+    details.
+  </p>
 </section>
