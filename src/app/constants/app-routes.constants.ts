@@ -8,6 +8,7 @@ export const APP_ROUTES = (() => {
     login: 'login',
     clubArea: 'club-area',
     roChat: 'ro-chat',
+    askQuestion: 'ask-question',
   };
   return Object.freeze(routes);
 })();

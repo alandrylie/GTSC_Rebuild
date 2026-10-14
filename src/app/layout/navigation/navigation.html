@@ -13,6 +13,15 @@
       </a>
       <a
         mat-list-item
+        [routerLink]="['/', routes.askQuestion]"
+        routerLinkActive="active-link"
+        (click)="drawer.close()"
+      >
+        <mat-icon matListItemIcon>robot</mat-icon>
+        <span matListItemTitle>Ask Questions</span>
+      </a>
+      <a
+        mat-list-item
         [routerLink]="['/', routes.disciplines]"
         routerLinkActive="active-link"
         (click)="drawer.close()"

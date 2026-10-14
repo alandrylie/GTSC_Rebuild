@@ -1,0 +1,31 @@
+<section class="ask-gtsc">
+  <h2>Ask GTSC</h2>
+  <p class="intro">Ask about range times, disciplines, fees or how to join.</p>
+
+  <div class="conversation">
+    @for (entry of conversation(); track $index) {
+      <p class="entry" [class]="entry.from">{{ entry.text }}</p>
+    }
+    @if (aiThinking()) {
+      <p class="entry assistant thinking">Thinking…</p>
+    }
+  </div>
+
+  <form [formGroup]="aiQuestion" (ngSubmit)="sendQuestion()">
+    <mat-form-field appearance="outline" subscriptSizing="dynamic" hideRequiredMarker>
+      <mat-label>Ask about the club</mat-label>
+      <textarea
+        matInput
+        id="questionText"
+        formControlName="questionText"
+        placeholder="e.g. When is the range open?"
+        cdkTextareaAutosize
+        cdkAutosizeMinRows="1"
+        cdkAutosizeMaxRows="5"
+      ></textarea>
+    </mat-form-field>
+    <button matButton="filled" type="submit" [disabled]="aiQuestion.invalid || aiThinking()">
+      Send
+    </button>
+  </form>
+</section>

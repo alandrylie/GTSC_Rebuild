@@ -1,0 +1,78 @@
+/* Mobile first: one centred column, capped on wide screens like the RO chat */
+.ask-gtsc {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+h2 {
+  margin: 0;
+}
+
+.intro {
+  margin: 0;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+/* The chat history: bubbles stacked top to bottom */
+.conversation {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.entry {
+  margin: 0;
+  max-width: 85%;
+  padding: 10px 14px;
+  border-radius: 16px;
+  /* Keep Gemini's line breaks, and wrap long words */
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* Visitor's questions: right side, primary tint (matches "mine" in RO chat) */
+.visitor {
+  align-self: flex-end;
+  background: var(--mat-sys-primary-container);
+  color: var(--mat-sys-on-primary-container);
+  border-bottom-right-radius: 4px;
+}
+
+/* Assistant's replies: left side, neutral surface */
+.entry.assistant {
+  align-self: flex-start;
+  background: var(--mat-sys-surface-container-high);
+  color: var(--mat-sys-on-surface);
+  border-bottom-left-radius: 4px;
+}
+
+.thinking {
+  font-style: italic;
+  opacity: 0.7;
+}
+
+/* Question box grows, Send button sits beside it */
+form {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+mat-form-field {
+  flex: 1;
+}
+
+/* Tablets and up: a little more breathing room */
+@media (min-width: 768px) {
+  .ask-gtsc {
+    padding: 24px;
+  }
+
+  .entry {
+    max-width: 70%;
+  }
+}

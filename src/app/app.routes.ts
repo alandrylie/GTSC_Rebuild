@@ -9,6 +9,7 @@ import { Login } from './pages/login/login';
 import { ClubArea } from './pages/club-area/club-area';
 import { authGuard } from './guards/auth-guard';
 import { ChatRangeOfficers } from './pages/chat-range-officers/chat-range-officers';
+import { GtscAiAssistant } from './pages/gtsc-ai-assistant/gtsc-ai-assistant';
 
 export const routes: Routes = [
   { path: APP_ROUTES.home, component: Home },
@@ -19,5 +20,6 @@ export const routes: Routes = [
   { path: APP_ROUTES.login, component: Login },
   { path: APP_ROUTES.clubArea, component: ClubArea, canActivate: [authGuard] },
   { path: APP_ROUTES.roChat, component: ChatRangeOfficers, canActivate: [authGuard] },
+  { path: APP_ROUTES.askQuestion, component: GtscAiAssistant },
   { path: '**', redirectTo: APP_ROUTES.home },
 ];

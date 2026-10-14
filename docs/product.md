@@ -17,14 +17,14 @@ A modern, mobile-friendly club website that makes joining quick, gives members t
 
 | User                          | What they need                                                                                        |
 | ----------------------------- | ----------------------------------------------------------------------------------------------------- |
-| **Visitors**                  | Find club info (hours, fees, disciplines) and apply to join                                           |
-| **Range officers & officers** | Log in to the club area, message each other, use the club assistant                                   |
+| **Visitors**                  | Find club info (hours, fees, disciplines), ask the club assistant, and apply to join                  |
+| **Range officers & officers** | Log in to the club area and message each other                                                        |
 | **Admins**                    | Edit club info from the site, with access set by their committee role (e.g. the treasurer edits fees) |
 
 ## Features (in priority order)
 
 1. **Club area login:** range officers and officers sign in to reach the club area. For now, only they get accounts.
-2. **AI club assistant:** answers questions using up-to-date club info.
+2. **AI club assistant (public):** answers anyone's questions using up-to-date club info, including how to join.
 3. **Range officer messaging:** range officers and officers create, read, edit and delete their own messages.
 4. **Household membership application:** one form covers a whole household, adults and juniors.
 
@@ -75,4 +75,4 @@ Login comes early because messaging needs a user ID. Deploying a day early leave
 
 ## Open Questions
 
-- Should the AI assistant be public or members-only?
+- ~~Should the AI assistant be public or members-only?~~ Decided 13 Oct: **public**, so it can tell visitors how to join.
