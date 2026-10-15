@@ -45,3 +45,6 @@ Thumbs.db
 
 # Design mockups (local reference only)
 /docs/mockups/
+
+# Firebase deploy cache (made by firebase deploy)
+.firebase/
