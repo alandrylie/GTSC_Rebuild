@@ -1,0 +1,12 @@
+<!-- The whole card is the link, so it's one big tap target on a phone -->
+<a class="card-link" [routerLink]="['/', link().route]">
+  <mat-card appearance="outlined">
+    <mat-card-header>
+      <mat-icon matCardAvatar aria-hidden="true">{{ link().icon }}</mat-icon>
+      <mat-card-title>{{ link().title }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{ link().description }}</p>
+    </mat-card-content>
+  </mat-card>
+</a>

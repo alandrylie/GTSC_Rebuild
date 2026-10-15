@@ -1,3 +1,14 @@
-<p>Hello {{ signedInUser()?.email }}</p>
-<button matButton="filled" (click)="logOut()">Log out</button>
-<a matButton="filled" [routerLink]="['/', routes.roChat]">RO Chat</a>
+<section class="club-area">
+  <header class="welcome">
+    <h2>Club Area</h2>
+    <p>Hello {{ greetingName() }}</p>
+  </header>
+
+  <div class="cards">
+    @for (link of links; track link.route) {
+      <app-club-area-card [link]="link" />
+    }
+  </div>
+
+  <button matButton="outlined" class="log-out" (click)="logOut()">Log out</button>
+</section>

@@ -1,6 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { MessagesService } from '../../service/messages.service';
 import { AuthService } from '../../service/auth.service';
+import { UsersService } from '../../service/users.service';
 import { ChatMessageRow } from '../../components/chat-message-row/chat-message-row';
 import { ChatMessageCreate } from '../../components/chat-message-create/chat-message-create';
 import { ChatMessage, NewChatMessage } from '../../model/chat-message';
@@ -19,6 +20,7 @@ import { ChatMessageUpdate } from '../../components/chat-message-update/chat-mes
 export class ChatRangeOfficers {
   private readonly chatMessageService = inject(MessagesService);
   private readonly auth = inject(AuthService);
+  private readonly profile = inject(UsersService).profileSignal;
   protected readonly chatMessages = this.chatMessageService.messageSignal;
   // The signed-in user's uid, so each row knows whether it's "mine"
   protected readonly currentUid = computed(() => this.auth.userSignal()?.uid);
@@ -30,7 +32,8 @@ export class ChatRangeOfficers {
     const newMessage: NewChatMessage = {
       text: message,
       authorUid: user.uid,
-      authorName: user.email,
+      // Display name from users/{uid} (e.g. "Vice S."); email only if there's no profile
+      authorName: this.profile()?.displayName ?? user.email,
     };
     try {
       this.errorMessage.set('');

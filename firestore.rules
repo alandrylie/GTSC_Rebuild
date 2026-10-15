@@ -8,6 +8,13 @@ service cloud.firestore {
         allow write: if false; // same as above but always false
     }
 
+    // Users: each person can read only their own profile (display name for the Club Area greeting).
+    // No writes from the app; profiles are made in the console for now.
+    match /users/{userId} {
+        allow read: if request.auth != null && request.auth.uid == userId;
+        allow write: if false;
+    }
+
     // is true if signed in and person has chat role in users {uid} under position field.
     function hasChatRole(){
         return request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.position.hasAny(['range-officer', 'web-admin']);

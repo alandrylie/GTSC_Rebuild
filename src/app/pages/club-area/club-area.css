@@ -1,0 +1,46 @@
+/* Phone first: one column, cards stacked */
+.club-area {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 1000px;
+  margin-inline: auto;
+  padding: 24px 16px 40px;
+}
+
+.welcome h2 {
+  margin: 0;
+  font: var(--mat-sys-headline-small);
+}
+
+.welcome p {
+  margin: 4px 0 0;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.cards {
+  display: grid;
+  gap: 16px;
+}
+
+.log-out {
+  align-self: flex-start;
+}
+
+/* ---------- Tablet and up: two cards per row ---------- */
+@media (min-width: 768px) {
+  .club-area {
+    padding: 40px 24px 56px;
+  }
+
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ---------- Laptop and up: three cards per row ---------- */
+@media (min-width: 1024px) {
+  .cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

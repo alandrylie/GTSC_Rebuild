@@ -3,6 +3,7 @@ import { ChatRangeOfficers } from './chat-range-officers';
 import { signal } from '@angular/core';
 import { MessagesService } from '../../service/messages.service';
 import { AuthService } from '../../service/auth.service';
+import { UsersService } from '../../service/users.service';
 
 describe('ChatRangeOfficers', () => {
   let component: ChatRangeOfficers;
@@ -29,6 +30,7 @@ describe('ChatRangeOfficers', () => {
       providers: [
         { provide: MessagesService, useValue: fakeMessagesService },
         { provide: AuthService, useValue: fakeAuthService },
+        { provide: UsersService, useValue: { profileSignal: signal(null) } },
       ],
     }).compileComponents();
 

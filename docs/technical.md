@@ -5,7 +5,7 @@ How the site is built. For what it does and why, see [product.md](product.md).
 ## Stack
 
 - **Front end:** Angular 22, Angular Material (Material 3 theme in `src/material-theme.scss`)
-- **Back end:** Firebase (Auth, Firestore, Hosting), with AI Logic and Gemini planned
+- **Back end:** Firebase (Auth, Firestore, Hosting, AI Logic with Gemini `gemini-3.5-flash-lite`)
 - **Tooling:** Vitest (jsdom), angular-eslint, Prettier
 
 ## Design Decisions
@@ -58,19 +58,42 @@ Ultra-wide screens get the laptop layout. No extra breakpoint is planned, but wi
 - `APP_ROUTES` is built inside an IIFE and returned with `Object.freeze`, so it is read-only at runtime and in TypeScript.
 - Paths are lowercase with hyphens (for example `range-times`).
 - The wildcard route (`**`) redirects unknown URLs to Home. It must always be the **last** route.
+- Guarded pages (`authGuard`): Club Area and RO Chat. Everything else is public, including the AI assistant.
+
+### Club Area tiles
+
+- The Club Area page is a grid of cards, one per back-office page (1 column on phones, 2 from 768px, 3 from 1024px).
+- The tiles come from one list, `CLUB_AREA_LINKS` in `src/app/constants/club-area-links.constants.ts` (IIFE + `Object.freeze`, like `APP_ROUTES`).
+- **To add a page to the Club Area:** add one entry (`title`, `description`, `icon`, `route` from `APP_ROUTES`). No HTML changes are needed; each tile is drawn by the `ClubAreaCard` component.
+- The greeting and the chat author name use the person's `displayName` from `users/{uid}`, falling back to their email if they have no profile.
+
+### Join us (household enquiry)
+
+- One form covers a whole household (adults and juniors). Dates are UK format (`DD/MM/YYYY`) via a custom `UkDateAdapter`.
+- Before sending, a pop-up shows the club terms. A second section appears if every applicant is under 18 (parent/guardian rules).
+- **Nothing is stored.** The form opens the visitor's own email app with a `mailto:` link, addressed to `clubInfo/contact.enquiryEmails`. The committee has not approved online applications, so this is an enquiry; the real application is still on paper.
+- A web page can't tell whether `mailto:` opened anything, so the thank-you card also offers **Open in Gmail**, **Open in Outlook.com** and **Copy details**.
+
+### AI club assistant
+
+- `AiAssistantService` uses Firebase AI Logic (Gemini Developer API). The chat session is built once per visit, so follow-up questions have context.
+- Its system instruction holds the answer rules (tone, list formats, what to refuse) plus the club data from Firestore: `schedule`, `committee`, `contact` and `fees`, sent as JSON.
+- **Never an exact location:** firearms are kept on site, so the assistant only says Glenrothes, Fife, and that the Vice-Secretary gives directions once a visit is approved.
+- Fees are stored in pence; the assistant is told to show pounds.
+- Cost control: the project is on the Blaze plan, with a Firebase spend cap on the Gemini API and a budget alert. Gemini is prepaid through AI Studio, so it stops (with a friendly error) if the credit runs out.
 
 ## Folder Structure
 
 ```
 src/app/
-  components/  pieces used inside pages (chat message row, chat message form)
-  constants/   shared constants (APP_ROUTES)
+  components/  pieces used inside pages (chat message row/form/edit, join terms pop-up, club area card)
+  constants/   shared constants (APP_ROUTES, CLUB_AREA_LINKS)
   guards/      route guards (authGuard)
   layout/      the frame around every page: navigation, hero header
   model/       TypeScript interfaces for Firestore data
   pages/       one folder per routed page
   service/     services (the only place that talks to Firebase)
-  shared/      reusable bits (confirm dialog)
+  shared/      reusable bits (confirm dialog, UK date adapter)
 public/images/ images served by the site
 docs/          product and technical docs
 ```
@@ -79,23 +102,43 @@ docs/          product and technical docs
 
 ### Current
 
-| Path                 | Holds                                                                                                   |
-| -------------------- | ------------------------------------------------------------------------------------------------------- |
-| `clubInfo/schedule`  | `sessions[]`: the fixed weekly timetable (`day`, `start`, `end`, `activity`, `whoCanAttend`). No dates. |
-| `clubInfo/committee` | `members[]`: committee members (`firstName`, `lastName`, `position[]`)                                  |
+| Path                 | Holds                                                                                                                           |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `clubInfo/schedule`  | `sessions[]`: the fixed weekly timetable (`day`, `start`, `end`, `activity`, `whoCanAttend`). No dates.                         |
+| `clubInfo/committee` | `members[]`: committee members (`firstName`, `lastName`, `position[]`)                                                          |
+| `clubInfo/contact`   | `enquiryEmails[]`: where Join us enquiries go; also given out by the AI. **Never** a street address or postcode.                |
+| `clubInfo/fees`      | Fees in **pence** (`7000` = £70.00): membership, weekly range fees, visitors, range hire, plus `lockers` and `groupVisits` maps |
+| `users/{uid}`        | One per account, ID = Firebase Auth UID: `displayName`, `position[]` (kebab-case, e.g. `range-officer`, `web-admin`)            |
+| `roChat/{id}`        | One per chat message: `text`, `authorUid`, `authorName`, `createdAt` (server time)                                              |
 
-Club info in Firestore is the single source of truth. Both the pages and the AI assistant read from it.
+Club info in Firestore is the single source of truth. Both the pages and the AI assistant read from it. Club data never goes in the code, because the GitHub repo is public.
+
+`users/{uid}` documents are made by hand in the Firebase console for now (no sign-up page yet).
 
 ### Planned
 
-- **Committee:** restructure to `committee/{id}`, one document per person (`firstName`, `lastName`, `position[]`, `uid`). Security rules work per document, so this lets access follow a person's role.
-- **Club info:** split into `clubInfo/schedule`, `clubInfo/fees` and `clubInfo/disciplines`, one document per permission area, so each rule maps to one role (for example `treasurer` edits fees).
+- **Roles:** `users/{uid}.position[]` replaced the planned `committee/{id}` restructure (decided 10 Oct). Rules read a person's roles from their own `users` document.
+- **Club info:** add `clubInfo/disciplines`. One document per permission area, so each rule can map to one role (for example `treasurer` edits fees).
 
 ## Authentication
 
 - Firebase Auth with email and password.
 - `AuthService` (`src/app/service/auth.service.ts`) exposes the current user as a signal (`userSignal`), plus `login()` and `logout()`.
-- Access is role-based. A person's committee `position[]` decides what they can edit.
+- `UsersService` reads the signed-in person's own `users/{uid}` document (`profileSignal`).
+- Access is role-based. A person's `position[]` decides what they can do.
+- Live listeners (chat messages, profile) restart whenever the signed-in user changes (`user$` + `switchMap`). Without that, logging out and in as someone else leaves a listener the rules refused, until the page is refreshed.
+
+## Security Rules
+
+Rules live in `firestore.rules`. Check they compile with `firebase deploy --only firestore:rules --dry-run`, then deploy without `--dry-run`.
+
+| Path          | Read                                                 | Write                                                                                                                                        |
+| ------------- | ---------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `clubInfo/*`  | Anyone                                               | Nobody from the app (console only)                                                                                                           |
+| `users/{uid}` | Only that signed-in person                           | Nobody from the app (console only)                                                                                                           |
+| `roChat/*`    | Signed in with a `range-officer` or `web-admin` role | Create: own `authorUid`, only the 4 known fields, text 1–500 characters, server time. Update: own message, `text` only. Delete: own message. |
+
+Anything in a publicly readable document can be read by anyone through the Firestore REST API, so never put private data there.
 
 ## Hosting
 
