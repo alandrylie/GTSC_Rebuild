@@ -1,0 +1,70 @@
+<h2 mat-dialog-title>Before you apply</h2>
+<mat-dialog-content>
+  <h3>Induction</h3>
+  <ul>
+    <li>
+      Our induction officer will text you to arrange an induction. You can see the club, have a chat
+      and try 10m air rifles.
+    </li>
+    <li>After the induction you can have up to 2 further visits before you need to join.</li>
+  </ul>
+
+  <h3>Probation</h3>
+  <ul>
+    <li>
+      New members serve a probationary period of at least 3 months, with at least 50% attendance.
+    </li>
+    <li>
+      If you meet the requirements, the committee votes at its next meeting and you become a full
+      member.
+    </li>
+  </ul>
+
+  <h3>Keys</h3>
+  <ul>
+    <li>
+      After a year as a full member you can apply for a key (£40 deposit) to attend outside official
+      nights, on a first come, first served basis.
+    </li>
+  </ul>
+
+  <h3>Firearms</h3>
+  <ul>
+    <li>Probationary members cannot use club rimfire rifles. Full members can.</li>
+    <li>
+      If you hold your own Firearm Certificate, you can use your own firearms once you are a full
+      member.
+    </li>
+    <li>
+      Some members have Section 1 firearms. These can only be held or shot by the certificate
+      holder. No one else may use or touch them.
+    </li>
+  </ul>
+
+  @if (data.juniorsOnly) {
+    <h3>Junior applicants</h3>
+    <ul>
+      <li>
+        Every junior must be accompanied by a parent or guardian, aged 18 or over, who stays on the
+        club premises whenever the junior is there.
+      </li>
+      <li>The parent or guardian does not need to join the club.</li>
+      <li>The parent or guardian is responsible for the junior's behaviour on club premises.</li>
+    </ul>
+  }
+
+  <div [formGroup]="agreements" class="agreements">
+    <mat-checkbox formControlName="readTerms">I have read and understand the above.</mat-checkbox>
+    @if (data.juniorsOnly) {
+      <mat-checkbox formControlName="guardian">
+        I understand and agree that a parent or guardian will accompany the junior as above.
+      </mat-checkbox>
+    }
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button matButton [mat-dialog-close]="false">Cancel</button>
+  <button matButton="filled" [mat-dialog-close]="true" [disabled]="agreements.invalid">
+    Continue
+  </button>
+</mat-dialog-actions>

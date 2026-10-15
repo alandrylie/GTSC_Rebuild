@@ -1,1 +1,145 @@
-<p>join-us works!</p>
+<section class="join">
+  <h2>Join GTSC</h2>
+
+  @if (sent()) {
+    <div class="thanks" role="status">
+      <h3>Your email app should now be open</h3>
+      <p>
+        Your enquiry is filled in and addressed to the club. Press <strong>Send</strong> in your
+        email app to send it. If it didn't open, please email {{ enquiryEmails() }}.
+      </p>
+      <p>
+        Once we receive it, our induction officer will text you to arrange an induction, where you
+        can see the club, have a chat and try 10m air rifles.
+      </p>
+    </div>
+  } @else {
+    <p class="intro">
+      One form covers your whole household. Add everyone who wants to join, adults and juniors.
+    </p>
+
+    <form [formGroup]="applicationForm" (ngSubmit)="submitApplication()">
+      <fieldset>
+        <legend>Contact details</legend>
+        <mat-form-field appearance="outline" hideRequiredMarker>
+          <mat-label>Email</mat-label>
+          <input matInput id="email" type="email" formControlName="email" autocomplete="email" />
+        </mat-form-field>
+        <mat-form-field appearance="outline" hideRequiredMarker>
+          <mat-label>Mobile number</mat-label>
+          <input matInput id="mobile" type="tel" formControlName="mobile" autocomplete="tel" />
+          <mat-hint>The induction officer will text this number</mat-hint>
+        </mat-form-field>
+      </fieldset>
+
+      <fieldset formGroupName="address">
+        <legend>Address</legend>
+        <mat-form-field appearance="outline" hideRequiredMarker>
+          <mat-label>Address line 1</mat-label>
+          <input matInput formControlName="line1" autocomplete="address-line1" />
+        </mat-form-field>
+        <mat-form-field appearance="outline" hideRequiredMarker>
+          <mat-label>Address line 2 (optional)</mat-label>
+          <input matInput formControlName="line2" autocomplete="address-line2" />
+        </mat-form-field>
+        <mat-form-field appearance="outline" hideRequiredMarker>
+          <mat-label>Town</mat-label>
+          <input matInput formControlName="town" autocomplete="address-level2" />
+        </mat-form-field>
+        <mat-form-field appearance="outline" hideRequiredMarker>
+          <mat-label>Postcode</mat-label>
+          <input matInput formControlName="postcode" autocomplete="postal-code" />
+        </mat-form-field>
+      </fieldset>
+
+      <div formArrayName="people" class="people">
+        @for (person of people.controls; track person; let i = $index) {
+          <fieldset [formGroupName]="i" class="person">
+            <legend>
+              Person {{ i + 1 }}
+              @if (isJunior(person.getRawValue())) {
+                <span class="junior">Junior</span>
+              }
+            </legend>
+            <mat-form-field appearance="outline" hideRequiredMarker>
+              <mat-label>First name</mat-label>
+              <input matInput formControlName="firstName" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" hideRequiredMarker>
+              <mat-label>Last name</mat-label>
+              <input matInput formControlName="lastName" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" hideRequiredMarker>
+              <mat-label>Date of birth</mat-label>
+              <input
+                matInput
+                [matDatepicker]="dobPicker"
+                formControlName="dateOfBirth"
+                [max]="today"
+                placeholder="DD/MM/YYYY"
+              />
+              <mat-datepicker-toggle matIconSuffix [for]="dobPicker" />
+              <mat-datepicker #dobPicker startView="multi-year" />
+            </mat-form-field>
+
+            <span class="radio-label" [id]="'awl-' + i"
+              >Do they hold an Air Weapon Licence (AWL)?</span
+            >
+            <mat-radio-group formControlName="hasAwl" [attr.aria-labelledby]="'awl-' + i">
+              <mat-radio-button [value]="true">Yes</mat-radio-button>
+              <mat-radio-button [value]="false">No</mat-radio-button>
+            </mat-radio-group>
+
+            <span class="radio-label" [id]="'fac-' + i"
+              >Do they hold a Firearm Certificate (FAC)?</span
+            >
+            <mat-radio-group formControlName="hasFac" [attr.aria-labelledby]="'fac-' + i">
+              <mat-radio-button [value]="true">Yes</mat-radio-button>
+              <mat-radio-button [value]="false">No</mat-radio-button>
+            </mat-radio-group>
+
+            @if (people.length > 1) {
+              <button matButton type="button" class="remove" (click)="removePerson(i)">
+                Remove person {{ i + 1 }}
+              </button>
+            }
+          </fieldset>
+        }
+      </div>
+
+      @if (people.length < maxPeople) {
+        <button matButton="outlined" type="button" (click)="addPerson()">Add another person</button>
+      }
+
+      <fieldset>
+        <legend>Declarations</legend>
+        <mat-checkbox formControlName="notProhibited">
+          I confirm no one in this application is prohibited from using or possessing an air weapon
+          or firearm.
+        </mat-checkbox>
+        <mat-checkbox formControlName="canAttendInduction">
+          We can attend an induction within the next 6 weeks.
+        </mat-checkbox>
+        @if (
+          applicationForm.touched &&
+          (applicationForm.controls.notProhibited.invalid ||
+            applicationForm.controls.canAttendInduction.invalid)
+        ) {
+          <p class="tick-note">Both boxes must be ticked to apply.</p>
+        }
+      </fieldset>
+
+      <p class="privacy-note">
+        Sending this opens your own email app with your details filled in. Nothing is stored on this
+        website. If you go on to join, your details will be passed on to Police Scotland, as we are
+        a licensed firearms club.
+      </p>
+
+      @if (errorMessage()) {
+        <p role="alert">{{ errorMessage() }}</p>
+      }
+
+      <button matButton="filled" type="submit">Send enquiry</button>
+    </form>
+  }
+</section>
