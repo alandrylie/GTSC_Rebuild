@@ -1,3 +1,3 @@
 export interface ClubContact {
-  enquiryEmails: string[];
+  enquiryEmails: string[]; // Join us enquiries go to every address in this list
 }

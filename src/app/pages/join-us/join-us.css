@@ -1,3 +1,6 @@
+/* ---------- Phone first ---------- */
+
+/* One centred column, same width cap as the chat pages */
 .join {
   display: flex;
   flex-direction: column;
@@ -23,6 +26,7 @@ form {
   gap: 16px;
 }
 
+/* Each section is a card: contact, address, each person, declarations */
 fieldset {
   display: flex;
   flex-direction: column;
@@ -35,6 +39,7 @@ fieldset {
 }
 
 legend {
+  /* float pulls the legend inside the card instead of sitting on its border */
   float: left;
   width: 100%;
   margin-bottom: 12px;
@@ -47,6 +52,7 @@ legend {
   gap: 16px;
 }
 
+/* Small pill beside "Person 2" when their date of birth makes them under 18 */
 .junior {
   margin-left: 8px;
   padding: 2px 10px;
@@ -73,6 +79,7 @@ mat-radio-group {
   color: var(--mat-sys-error);
 }
 
+/* Checkbox text wraps under itself, not under the box */
 mat-checkbox {
   display: block;
   margin-bottom: 8px;
@@ -90,6 +97,7 @@ mat-checkbox {
   font: var(--mat-sys-body-small);
 }
 
+/* Error message: the theme's error colours, like the login page */
 [role='alert'] {
   margin: 0;
   padding: 12px;
@@ -98,6 +106,7 @@ mat-checkbox {
   color: var(--mat-sys-on-error-container);
 }
 
+/* Thank-you card after sending */
 .thanks {
   padding: 16px;
   border-radius: 12px;
@@ -105,8 +114,23 @@ mat-checkbox {
   color: var(--mat-sys-on-primary-container);
 }
 
+/* Fallback buttons on the thank-you card: stacked on phones, in a row from tablet up */
+.fallback {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-block: 8px 16px;
+}
+
+/* ---------- Tablet and up ---------- */
 @media (min-width: 768px) {
+  /* Buttons stop stretching full width on bigger screens */
   form > button {
     align-self: flex-start;
+  }
+
+  .fallback {
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 }

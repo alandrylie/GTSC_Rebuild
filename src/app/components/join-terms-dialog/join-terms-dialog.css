@@ -1,3 +1,4 @@
+/* Section headings: small and tight so the list stays easy to scan on a phone */
 h3 {
   margin: 16px 0 4px;
   font: var(--mat-sys-title-small);
@@ -12,6 +13,7 @@ li {
   margin-bottom: 4px;
 }
 
+/* Space above the tick boxes so they read as the last step */
 .agreements {
   margin-top: 16px;
 }

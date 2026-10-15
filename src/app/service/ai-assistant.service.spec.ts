@@ -21,7 +21,12 @@ describe('AiAssistantService', () => {
         { provide: AI, useValue: {} },
         {
           provide: ClubInfoService,
-          useValue: { clubSchedule$: of({ sessions: [] }), clubCommittee$: of({ members: [] }) },
+          useValue: {
+            clubSchedule$: of({ sessions: [] }),
+            clubCommittee$: of({ members: [] }),
+            clubContact$: of(undefined),
+            clubFees$: of(undefined),
+          },
         },
       ],
     });

@@ -11,6 +11,7 @@ import {
 } from '@angular/material/dialog';
 import { JoinTermsDialogData } from '../../model/join-terms-dialog-data';
 
+// Shown when the Join form is sent. Closes with true only once every box shown is ticked.
 @Component({
   imports: [
     ReactiveFormsModule,
@@ -34,6 +35,8 @@ export class JoinTermsDialog {
   });
 
   constructor() {
+    // A disabled control doesn't count towards the form being valid,
+    // so the guardian box is only required when it's shown
     if (!this.data.juniorsOnly) this.agreements.controls.guardian.disable();
   }
 }

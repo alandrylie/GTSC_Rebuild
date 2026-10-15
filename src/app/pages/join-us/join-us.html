@@ -6,8 +6,32 @@
       <h3>Your email app should now be open</h3>
       <p>
         Your enquiry is filled in and addressed to the club. Press <strong>Send</strong> in your
-        email app to send it. If it didn't open, please email {{ enquiryEmails() }}.
+        email app to send it.
       </p>
+      <p>
+        Nothing opened? Use your webmail, or copy the details into a new email to
+        <strong>{{ enquiryEmails() }}</strong
+        >.
+      </p>
+      <div class="fallback">
+        <a matButton="outlined" [href]="gmailLink()" target="_blank" rel="noopener"
+          >Open in Gmail</a
+        >
+        <a matButton="outlined" [href]="outlookLink()" target="_blank" rel="noopener">
+          Open in Outlook.com
+        </a>
+        <button
+          matButton="outlined"
+          type="button"
+          [cdkCopyToClipboard]="emailBody()"
+          (cdkCopyToClipboardCopied)="copied.set($event)"
+        >
+          Copy details
+        </button>
+      </div>
+      @if (copied()) {
+        <p>Copied. Paste it into a new email to {{ enquiryEmails() }}.</p>
+      }
       <p>
         Once we receive it, our induction officer will text you to arrange an induction, where you
         can see the club, have a chat and try 10m air rifles.
@@ -19,6 +43,7 @@
     </p>
 
     <form [formGroup]="applicationForm" (ngSubmit)="submitApplication()">
+      <!-- Contact: once per household -->
       <fieldset>
         <legend>Contact details</legend>
         <mat-form-field appearance="outline" hideRequiredMarker>
@@ -52,6 +77,7 @@
         </mat-form-field>
       </fieldset>
 
+      <!-- People: one card per FormGroup in the FormArray -->
       <div formArrayName="people" class="people">
         @for (person of people.controls; track person; let i = $index) {
           <fieldset [formGroupName]="i" class="person">
@@ -111,6 +137,7 @@
         <button matButton="outlined" type="button" (click)="addPerson()">Add another person</button>
       }
 
+      <!-- Declarations -->
       <fieldset>
         <legend>Declarations</legend>
         <mat-checkbox formControlName="notProhibited">
@@ -131,7 +158,7 @@
 
       <p class="privacy-note">
         Sending this opens your own email app with your details filled in. Nothing is stored on this
-        website. If you go on to join, your details will be passed on to Police Scotland, as we are
+        website. If you go on to join the club, your details will be passed on to Police Scotland, as we are
         a licensed firearms club.
       </p>
 

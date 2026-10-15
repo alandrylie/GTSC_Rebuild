@@ -5,6 +5,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { Observable } from 'rxjs';
 import { Committee } from '../model/committee';
 import { ClubContact } from '../model/club-contact';
+import { ClubFees } from '../model/club-fees';
 
 @Service()
 export class ClubInfoService {
@@ -15,6 +16,8 @@ export class ClubInfoService {
   readonly clubCommittee$ = docData(this.clubCommitteeRef) as Observable<Committee>;
   private readonly clubContactRef = doc(this.firestore, 'clubInfo/contact');
   readonly clubContact$ = docData(this.clubContactRef) as Observable<ClubContact | undefined>;
+  private readonly clubFeesRef = doc(this.firestore, 'clubInfo/fees');
+  readonly clubFees$ = docData(this.clubFeesRef) as Observable<ClubFees | undefined>;
 
   scheduleSignal = toSignal(this.clubSchedule$);
   committeeSignal = toSignal(this.clubCommittee$);
