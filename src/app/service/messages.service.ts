@@ -10,7 +10,8 @@ import {
   doc,
   updateDoc,
 } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, catchError, of, switchMap } from 'rxjs';
+import { AuthService } from './auth.service';
 import { ChatMessage, NewChatMessage } from '../model/chat-message';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { serverTimestamp } from '@angular/fire/firestore';
@@ -18,12 +19,29 @@ import { serverTimestamp } from '@angular/fire/firestore';
 @Service()
 export class MessagesService {
   private readonly firestore = inject(Firestore);
+  private readonly authService = inject(AuthService);
   private readonly messageCol = collection(this.firestore, 'roChat');
   getMessages$(): Observable<ChatMessage[]> {
     const q = query(this.messageCol, orderBy('createdAt', 'asc'));
     return collectionData(q, { idField: 'id' }) as Observable<ChatMessage[]>;
   }
-  messageSignal = toSignal(this.getMessages$(), { initialValue: null });
+  // Restart the live listener whenever the signed-in user changes, so a
+  // listener refused by the security rules (e.g. on log out) doesn't stay dead.
+  readonly messageSignal = toSignal(
+    this.authService.user$.pipe(
+      switchMap((user) =>
+        user
+          ? this.getMessages$().pipe(
+              catchError((error) => {
+                console.error('Chat listener refused:', error);
+                return of([]);
+              }),
+            )
+          : of(null),
+      ),
+    ),
+    { initialValue: null },
+  );
   addChatMessage(message: NewChatMessage) {
     return addDoc(this.messageCol, { ...message, createdAt: serverTimestamp() });
   }

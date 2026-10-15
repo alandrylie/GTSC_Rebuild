@@ -6,6 +6,7 @@
         matInput
         id="text"
         formControlName="text"
+        (keydown.enter)="sendOnEnter($event)"
         placeholder="Enter the message here."
         cdkTextareaAutosize
         cdkAutosizeMinRows="1"

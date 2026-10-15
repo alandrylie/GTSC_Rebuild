@@ -1,0 +1,38 @@
+rules_version = '2';
+service cloud.firestore {
+    match /databases/{database}/documents {    
+        
+    // Club info: public read (various pages + AI assistance) no write from the app.
+    match /clubInfo/{docId} {
+        allow read: if true; // no condition so this makes it always true
+        allow write: if false; // same as above but always false
+    }
+
+    // is true if signed in and person has chat role in users {uid} under position field.
+    function hasChatRole(){
+        return request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.position.hasAny(['range-officer', 'web-admin']);
+    }
+    // Only users with the above roles can access & write to roChat.
+    match /roChat/{messageId} {
+        allow read: if hasChatRole();
+        allow create: if hasChatRole()
+        && request.resource.data.authorUid == request.auth.uid
+        && request.resource.data.keys().hasOnly(['text', 'authorUid', 'authorName', 'createdAt'])
+        && request.resource.data.text is string
+        && request.resource.data.text.size() > 0
+        && request.resource.data.text.size() <= 500
+        && request.resource.data.createdAt == request.time;
+
+        allow update: if hasChatRole()
+        && request.resource.data.authorUid == request.auth.uid
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['text'])
+        && request.resource.data.text is string
+        && request.resource.data.text.size() > 0
+        && request.resource.data.text.size() <= 500;
+
+        allow delete: if hasChatRole()
+        && resource.data.authorUid == request.auth.uid;
+
+    }
+  }
+}

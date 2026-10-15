@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { MessagesService } from './messages.service';
 import { of } from 'rxjs';
 import { Firestore, addDoc, serverTimestamp } from '@angular/fire/firestore';
+import { AuthService } from './auth.service';
 
 vi.mock('@angular/fire/firestore', () => ({
   Firestore: class {},
@@ -17,7 +18,10 @@ describe('MessagesService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [{ provide: Firestore, useValue: {} }],
+      providers: [
+        { provide: Firestore, useValue: {} },
+        { provide: AuthService, useValue: { user$: of(null) } },
+      ],
     });
 
     service = TestBed.inject(MessagesService);
