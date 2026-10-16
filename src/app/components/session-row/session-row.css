@@ -1,0 +1,34 @@
+/* The component's own tag is a grid item on the page; block lets the card fill its cell */
+:host {
+  display: block;
+}
+
+/* One card per session, matching the Home page cards (slate stripe on the left) */
+.session {
+  height: 100%;
+  box-sizing: border-box;
+  padding: 20px;
+  border-left: 4px solid var(--mat-sys-primary);
+  border-radius: 12px;
+  background: var(--mat-sys-surface-container-low);
+  color: var(--mat-sys-on-surface);
+  box-shadow: var(--mat-sys-level1);
+}
+
+/* The day name is the card title */
+.session h3 {
+  margin: 0 0 8px;
+  font: var(--mat-sys-title-large);
+  color: var(--mat-sys-primary);
+}
+
+.session p {
+  margin: 0;
+  font: var(--mat-sys-body-large);
+  color: var(--mat-sys-on-surface-variant);
+}
+
+/* A little space between the Activity, Time and Who can attend lines */
+.session p + p {
+  margin-top: 6px;
+}

@@ -1,0 +1,51 @@
+/* ---------- Phone first ---------- */
+
+/* One centred column, same width and padding as the Club Area page */
+.range-times {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 1000px;
+  margin-inline: auto;
+  padding: 24px 16px 40px;
+}
+
+.range-times h2 {
+  margin: 0;
+  font: var(--mat-sys-headline-small);
+}
+
+/* Shown while Firestore is still loading (sessions() is null) */
+.range-times > p {
+  margin: 0;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+/* The session cards, stacked on phones */
+.sessions {
+  display: grid;
+  gap: 16px;
+}
+
+/* ---------- Tablet and up: two cards per row ---------- */
+@media (min-width: 768px) {
+  .range-times {
+    padding: 40px 24px 56px;
+  }
+
+  .range-times h2 {
+    font: var(--mat-sys-headline-medium);
+  }
+
+  .sessions {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+/* ---------- Laptop and up: three cards per row ---------- */
+@media (min-width: 1024px) {
+  .sessions {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

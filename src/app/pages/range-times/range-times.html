@@ -1,1 +1,12 @@
-<p>range-times works!</p>
+<section class="range-times">
+  <h2>Range Times</h2>
+  @if (sessions()) {
+    <div class="sessions">
+      @for (session of sessions(); track session.day) {
+        <app-session-row [session]="session" />
+      }
+    </div>
+  } @else {
+    <p>Loading timetable...</p>
+  }
+</section>
