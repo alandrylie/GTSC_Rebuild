@@ -1,0 +1,44 @@
+/* ---------- Phone first ---------- */
+
+/* One centred column, same width and padding as Range Times */
+.disciplines {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 1000px;
+  margin-inline: auto;
+  padding: 24px 16px 40px;
+}
+
+.disciplines h2 {
+  margin: 0;
+  font: var(--mat-sys-headline-small);
+}
+
+/* Shown while Firestore is still loading */
+.disciplines > p {
+  margin: 0;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+/* The discipline cards, stacked on phones */
+.cards {
+  display: grid;
+  gap: 16px;
+}
+
+/* ---------- Tablet and up: two cards per row ---------- */
+@media (min-width: 768px) {
+  .disciplines {
+    padding: 40px 24px 56px;
+  }
+
+  .disciplines h2 {
+    font: var(--mat-sys-headline-medium);
+  }
+
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}

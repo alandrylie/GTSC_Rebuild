@@ -1,1 +1,12 @@
-<p>disciplines works!</p>
+<section class="disciplines">
+  <h2>Disciplines</h2>
+  @if (clubInfo.disciplineSignal()) {
+    <div class="cards">
+      @for (discipline of clubInfo.disciplineSignal()?.disciplines; track discipline.name) {
+        <app-discipline-card [discipline]="discipline" />
+      }
+    </div>
+  } @else {
+    <p>Loading disciplines...</p>
+  }
+</section>

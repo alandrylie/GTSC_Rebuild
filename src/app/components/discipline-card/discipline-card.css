@@ -1,0 +1,31 @@
+/* The component's own tag is a grid item on the page; block lets the card fill its cell */
+:host {
+  display: block;
+}
+
+/* One card per discipline, matching the Range Times cards (slate stripe on the left) */
+.discipline {
+  height: 100%;
+  box-sizing: border-box;
+  padding: 20px;
+  border-left: 4px solid var(--mat-sys-primary);
+  border-radius: 12px;
+  background: var(--mat-sys-surface-container-low);
+  color: var(--mat-sys-on-surface);
+  box-shadow: var(--mat-sys-level1);
+}
+
+/* The discipline name is the card title */
+.discipline h3 {
+  margin: 0 0 8px;
+  font: var(--mat-sys-title-large);
+  color: var(--mat-sys-primary);
+}
+
+/* pre-line keeps any line breaks typed into the Firestore description */
+.discipline p {
+  margin: 0;
+  font: var(--mat-sys-body-large);
+  color: var(--mat-sys-on-surface-variant);
+  white-space: pre-line;
+}

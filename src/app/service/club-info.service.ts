@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Committee } from '../model/committee';
 import { ClubContact } from '../model/club-contact';
 import { ClubFees } from '../model/club-fees';
+import { Disciplines } from '../model/disciplines';
 
 @Service()
 export class ClubInfoService {
@@ -18,7 +19,10 @@ export class ClubInfoService {
   readonly clubContact$ = docData(this.clubContactRef) as Observable<ClubContact | undefined>;
   private readonly clubFeesRef = doc(this.firestore, 'clubInfo/fees');
   readonly clubFees$ = docData(this.clubFeesRef) as Observable<ClubFees | undefined>;
+  private readonly clubDisciplineRef = doc(this.firestore, 'clubInfo/disciplines');
+  readonly clubDisciplines$ = docData(this.clubDisciplineRef) as Observable<Disciplines>;
 
   scheduleSignal = toSignal(this.clubSchedule$);
   committeeSignal = toSignal(this.clubCommittee$);
+  disciplineSignal = toSignal(this.clubDisciplines$);
 }

@@ -1,9 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { DisciplineCard } from '../../components/discipline-card/discipline-card';
+import { ClubInfoService } from '../../service/club-info.service';
 
 @Component({
-  imports: [],
+  imports: [DisciplineCard],
   selector: 'app-disciplines',
   styleUrl: './disciplines.css',
   templateUrl: './disciplines.html',
 })
-export class Disciplines {}
+export class Disciplines {
+  protected readonly clubInfo = inject(ClubInfoService);
+}
