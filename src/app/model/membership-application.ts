@@ -25,4 +25,8 @@ export interface MembershipApplication {
   termsAcknowledged: boolean; // ticked in the club terms pop-up before sending
   guardianAcknowledged: boolean; // true when only juniors applied and the guardian rules were agreed
   people: ApplicantPerson[];
+  disciplines: {
+    rifles: boolean;
+    pistols: boolean;
+  };
 }

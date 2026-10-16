@@ -15,7 +15,11 @@ describe('JoinUs', () => {
       providers: [
         {
           provide: ClubInfoService,
-          useValue: { clubContact$: of({ enquiryEmails: ['enquiries@example.com'] }) },
+          useValue: {
+            clubContact$: of({
+              joinEmails: { rifles: ['rifles@example.com'], pistols: ['pistols@example.com'] },
+            }),
+          },
         },
         { provide: DateAdapter, useClass: UkDateAdapter },
         { provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS },

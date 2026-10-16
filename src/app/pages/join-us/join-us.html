@@ -136,7 +136,20 @@
       @if (people.length < maxPeople) {
         <button matButton="outlined" type="button" (click)="addPerson()">Add another person</button>
       }
-
+      <!-- Disciplines selection-->
+      <fieldset formGroupName="disciplines">
+        <legend>Which disciplines are you interested in? Select at least one</legend>
+        <mat-checkbox formControlName="rifles"
+          >I am interested in shooting Air Rifles & or RimFire rifles</mat-checkbox
+        >
+        <mat-checkbox formControlName="pistols">I am interested in shooting pistols</mat-checkbox>
+        @if (
+          applicationForm.controls.disciplines.touched &&
+          applicationForm.controls.disciplines.invalid
+        ) {
+          <p class="tick-note">Please Select at least one discipline.</p>
+        }
+      </fieldset>
       <!-- Declarations -->
       <fieldset>
         <legend>Declarations</legend>
@@ -158,8 +171,8 @@
 
       <p class="privacy-note">
         Sending this opens your own email app with your details filled in. Nothing is stored on this
-        website. If you go on to join the club, your details will be passed on to Police Scotland, as we are
-        a licensed firearms club.
+        website. If you go on to join the club, your details will be passed on to Police Scotland,
+        as we are a licensed firearms club.
       </p>
 
       @if (errorMessage()) {

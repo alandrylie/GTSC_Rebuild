@@ -16,7 +16,7 @@ describe('ContactUs', () => {
           provide: ClubInfoService,
           useValue: {
             contactSignal: signal({
-              enquiryEmails: [],
+              joinEmails: { rifles: [], pistols: [] },
               contacts: [{ role: 'Test role', email: 'test@example.com' }],
             }),
           },

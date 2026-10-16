@@ -14,11 +14,13 @@ import { JoinTermsDialog } from '../../components/join-terms-dialog/join-terms-d
 import { JoinTermsDialogData } from '../../model/join-terms-dialog-data';
 import { ClubInfoService } from '../../service/club-info.service';
 import { MembershipApplication } from '../../model/membership-application';
+import { atLeastOneTicked } from '../../helpers/at-least-one-ticked';
+import { recipientsFor } from '../../helpers/recipients-for';
 
 const MAX_PEOPLE = 10;
 // Mobile: 07... or +44 7..., spaces allowed (e.g. 07123 456789)
 const MOBILE = /^(?:\+44\s?|0)7\d{3}\s?\d{3}\s?\d{3}$/;
-const EMAIL_SUBJECT = 'Membership enquiry';
+const EMAIL_SUBJECT = 'New Membership enquiry';
 const POSTCODE = /^[A-Za-z]{1,2}\d[A-Za-z\d]?\s*\d[A-Za-z]{2}$/;
 
 @Component({
@@ -85,6 +87,14 @@ export class JoinUs {
       }),
     }),
     people: new FormArray([this.newPerson()]),
+
+    disciplines: new FormGroup(
+      {
+        rifles: new FormControl(false, { nonNullable: true }),
+        pistols: new FormControl(false, { nonNullable: true }),
+      },
+      { validators: atLeastOneTicked },
+    ),
     // requiredTrue: the box must be ticked, not just touched
     notProhibited: new FormControl(false, {
       validators: [Validators.requiredTrue],
@@ -139,10 +149,11 @@ export class JoinUs {
     try {
       // Club addresses come from Firestore (clubInfo/contact), so they can change without a redeploy
       const contact = await firstValueFrom(this.clubInfo.clubContact$);
-      const recipients = contact?.enquiryEmails ?? [];
+      const form = this.applicationForm.getRawValue();
+      if (!contact) throw new Error('No club contact details found');
+      const recipients = recipientsFor(form.disciplines, contact.joinEmails);
       if (recipients.length === 0) throw new Error('No enquiry email address set');
 
-      const form = this.applicationForm.getRawValue();
       const enquiry: MembershipApplication = {
         ...form,
         termsAcknowledged: true,
@@ -185,6 +196,8 @@ export class JoinUs {
       '',
       `Email: ${enquiry.email}`,
       `Mobile: ${enquiry.mobile}`,
+      `Interested in Rifles: ${yesNo(enquiry.disciplines.rifles)}`,
+      `Interested in Pistols: ${yesNo(enquiry.disciplines.pistols)}`,
       '',
       'Address:',
       address.line1,

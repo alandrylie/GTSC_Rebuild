@@ -20,6 +20,7 @@ export class AiAssistantService {
     const committee = await firstValueFrom(this.clubInfo.clubCommittee$);
     const contact = await firstValueFrom(this.clubInfo.clubContact$);
     const fees = await firstValueFrom(this.clubInfo.clubFees$);
+    const disciplines = await firstValueFrom(this.clubInfo.clubDisciplines$);
     const aiModel = getGenerativeModel(
       this.aiService,
       {
@@ -68,6 +69,8 @@ export class AiAssistantService {
           'In the timetable, day 1 is Monday and day 7 is Sunday. ' +
           'Club timetable: ' +
           JSON.stringify(schedule) +
+          'Disciplines:' +
+          JSON.stringify(disciplines) +
           ' Committee: ' +
           JSON.stringify(committee) +
           'Contacts: ' +
