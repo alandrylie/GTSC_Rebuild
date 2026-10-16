@@ -71,13 +71,13 @@ Ultra-wide screens get the laptop layout. No extra breakpoint is planned, but wi
 
 - One form covers a whole household (adults and juniors). Dates are UK format (`DD/MM/YYYY`) via a custom `UkDateAdapter`.
 - Before sending, a pop-up shows the club terms. A second section appears if every applicant is under 18 (parent/guardian rules).
-- **Nothing is stored.** The form opens the visitor's own email app with a `mailto:` link, addressed to `clubInfo/contact.enquiryEmails`. The committee has not approved online applications, so this is an enquiry; the real application is still on paper.
+- **Nothing is stored.** The form opens the visitor's own email app with a `mailto:` link, addressed by the disciplines the household ticks (rifles, pistols or both). The pure helper `recipientsFor()` picks the addresses from `clubInfo/contact.joinEmails` and removes duplicates; the `atLeastOneTicked` group validator makes sure at least one box is ticked. The committee has not approved online applications, so this is an enquiry; the real application is still on paper.
 - A web page can't tell whether `mailto:` opened anything, so the thank-you card also offers **Open in Gmail**, **Open in Outlook.com** and **Copy details**.
 
 ### AI club assistant
 
 - `AiAssistantService` uses Firebase AI Logic (Gemini Developer API). The chat session is built once per visit, so follow-up questions have context.
-- Its system instruction holds the answer rules (tone, list formats, what to refuse) plus the club data from Firestore: `schedule`, `committee`, `contact` and `fees`, sent as JSON.
+- Its system instruction holds the answer rules (tone, list formats, what to refuse) plus the club data from Firestore: `schedule`, `disciplines`, `committee`, `contact` and `fees`, sent as JSON.
 - **Never an exact location:** firearms are kept on site, so the assistant only says Glenrothes, Fife, and that the Vice-Secretary gives directions once a visit is approved.
 - Fees are stored in pence; the assistant is told to show pounds.
 - Cost control: the project is on the Blaze plan, with a Firebase spend cap on the Gemini API and a budget alert. Gemini is prepaid through AI Studio, so it stops (with a friendly error) if the credit runs out.
@@ -102,14 +102,15 @@ docs/          product and technical docs
 
 ### Current
 
-| Path                 | Holds                                                                                                                           |
-| -------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| `clubInfo/schedule`  | `sessions[]`: the fixed weekly timetable (`day`, `start`, `end`, `activity`, `whoCanAttend`). No dates.                         |
-| `clubInfo/committee` | `members[]`: committee members (`firstName`, `lastName`, `position[]`)                                                          |
-| `clubInfo/contact`   | `enquiryEmails[]`: where Join us enquiries go; also given out by the AI. **Never** a street address or postcode.                |
-| `clubInfo/fees`      | Fees in **pence** (`7000` = £70.00): membership, weekly range fees, visitors, range hire, plus `lockers` and `groupVisits` maps |
-| `users/{uid}`        | One per account, ID = Firebase Auth UID: `displayName`, `position[]` (kebab-case, e.g. `range-officer`, `web-admin`)            |
-| `roChat/{id}`        | One per chat message: `text`, `authorUid`, `authorName`, `createdAt` (server time)                                              |
+| Path                   | Holds                                                                                                                                                                                          |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `clubInfo/schedule`    | `sessions[]`: the fixed weekly timetable (`day`, `start`, `end`, `activity`, `whoCanAttend`). No dates.                                                                                        |
+| `clubInfo/committee`   | `members[]`: committee members (`firstName`, `lastName`, `position[]`)                                                                                                                         |
+| `clubInfo/disciplines` | `disciplines[]`: each discipline the club offers (`name`, `description`), shown on the Disciplines page and given to the AI                                                                    |
+| `clubInfo/contact`     | `contacts[]` (`role`, `email`): shown on the Contact page. `joinEmails` map (`rifles[]`, `pistols[]`): where Join us enquiries go for each discipline. **Never** a street address or postcode. |
+| `clubInfo/fees`        | Fees in **pence** (`7000` = £70.00): membership, weekly range fees, visitors, range hire, plus `lockers` and `groupVisits` maps                                                                |
+| `users/{uid}`          | One per account, ID = Firebase Auth UID: `displayName`, `position[]` (kebab-case, e.g. `range-officer`, `web-admin`)                                                                           |
+| `roChat/{id}`          | One per chat message: `text`, `authorUid`, `authorName`, `createdAt` (server time)                                                                                                             |
 
 Club info in Firestore is the single source of truth. Both the pages and the AI assistant read from it. Club data never goes in the code, because the GitHub repo is public.
 
@@ -118,7 +119,7 @@ Club info in Firestore is the single source of truth. Both the pages and the AI 
 ### Planned
 
 - **Roles:** `users/{uid}.position[]` replaced the planned `committee/{id}` restructure (decided 10 Oct). Rules read a person's roles from their own `users` document.
-- **Club info:** add `clubInfo/disciplines`. One document per permission area, so each rule can map to one role (for example `treasurer` edits fees).
+- **Club info:** keep one document per permission area, so each rule can map to one role (for example `treasurer` edits fees) once the admin page is built.
 
 ## Authentication
 

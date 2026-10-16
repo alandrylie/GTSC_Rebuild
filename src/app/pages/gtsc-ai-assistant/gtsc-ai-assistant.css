@@ -5,11 +5,13 @@
   gap: 12px;
   max-width: 800px;
   margin: 0 auto;
-  padding: 16px;
+  padding: 24px 16px 40px; /* same spacing as the other info pages */
 }
 
+/* Page title matches Range Times, Disciplines and Contact */
 h2 {
   margin: 0;
+  font: var(--mat-sys-headline-small);
 }
 
 .intro {
@@ -76,7 +78,11 @@ mat-form-field {
 /* Tablets and up: a little more breathing room */
 @media (min-width: 768px) {
   .ask-gtsc {
-    padding: 24px;
+    padding: 40px 24px 56px;
+  }
+
+  h2 {
+    font: var(--mat-sys-headline-medium);
   }
 
   .entry {

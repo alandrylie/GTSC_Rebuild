@@ -48,13 +48,12 @@ Permissions come from a person's committee role, not from the person. When someo
 ## Out of Scope (for 17 Oct)
 
 - **Stretch goals:** better picture gallery, demo club shop, and if time permits, host the demo on IONOS as a subdomain of gtsc.co.uk.
-- **Future:** online applications saved on the site (needs committee approval), with an automatic email to the club. Logins for general members, with a sign-up page and an officer approving each account. A chat moderator role. Disciplines info for the assistant.
+- **Future:** online applications saved on the site (needs committee approval), with an automatic email to the club. Logins for general members, with a sign-up page and an officer approving each account. A chat moderator role. An admin page so trusted people can update club info without the Firebase console (ran out of time for 17 Oct).
 
 ## What "Done" Looks Like
 
 - Only fully working features ship.
 - Club info is stored in one place, and the site pages and the assistant both read from it.
-- An admin can update club info without using the Firebase console.
 - The site is live on Firebase Hosting by 3pm, Sat 17 Oct 2026.
 
 ## Timeline
