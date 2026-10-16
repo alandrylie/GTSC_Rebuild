@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { ClubInfoService } from '../../service/club-info.service';
 
 @Component({
   imports: [],
@@ -6,4 +7,6 @@ import { Component } from '@angular/core';
   styleUrl: './contact-us.css',
   templateUrl: './contact-us.html',
 })
-export class ContactUs {}
+export class ContactUs {
+  protected readonly clubInfo = inject(ClubInfoService);
+}

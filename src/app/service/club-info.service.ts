@@ -25,4 +25,5 @@ export class ClubInfoService {
   scheduleSignal = toSignal(this.clubSchedule$);
   committeeSignal = toSignal(this.clubCommittee$);
   disciplineSignal = toSignal(this.clubDisciplines$);
+  contactSignal = toSignal(this.clubContact$);
 }

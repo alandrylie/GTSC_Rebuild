@@ -1,1 +1,23 @@
-<p>contact-us works!</p>
+<section class="contact">
+  <h2>Contact us</h2>
+  @if (clubInfo.contactSignal()) {
+    <ul class="emails">
+      @for (contact of clubInfo.contactSignal()?.contacts; track contact.email) {
+        <li>
+          <span>Role: {{ contact.role }}</span>
+          <a [href]="'mailto:' + contact.email"> {{ contact.email }}</a>
+        </li>
+      }
+    </ul>
+  } @else {
+    <p>Loading contacts...</p>
+  }
+  <div class="location">
+    <h3>Location:</h3>
+    <p>Glenrothes, Fife</p>
+    <p>
+      Location is given during Induction invitation or when your Visit is approved by the Vice
+      Secretary
+    </p>
+  </div>
+</section>

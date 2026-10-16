@@ -1,0 +1,106 @@
+/* ---------- Phone first ---------- */
+
+/* One centred column, same width and padding as the other info pages */
+.contact {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 1000px;
+  margin-inline: auto;
+  padding: 24px 16px 40px;
+}
+
+.contact h2 {
+  margin: 0;
+  font: var(--mat-sys-headline-small);
+}
+
+/* Loading message and the location line */
+.contact > p {
+  margin: 0;
+  font: var(--mat-sys-body-large);
+  color: var(--mat-sys-on-surface-variant);
+}
+
+/* The contacts as cards, stacked on phones (no bullets) */
+.emails {
+  display: grid;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* One card per contact, matching the Range Times and Disciplines cards */
+.emails li {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 20px;
+  border-left: 4px solid var(--mat-sys-primary);
+  border-radius: 12px;
+  background: var(--mat-sys-surface-container-low);
+  box-shadow: var(--mat-sys-level1);
+}
+
+/* The role is the card title */
+.emails span {
+  font: var(--mat-sys-title-large);
+  color: var(--mat-sys-primary);
+}
+
+/* Long email addresses wrap instead of pushing the card wider than a phone */
+.emails a {
+  font: var(--mat-sys-body-large);
+  color: var(--mat-sys-on-surface);
+  overflow-wrap: anywhere;
+}
+
+.emails a:hover {
+  color: var(--mat-sys-primary);
+}
+
+/* Clear focus ring for keyboard users */
+.emails a:focus-visible {
+  outline: 3px solid var(--mat-sys-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Location: a tinted box under the contacts, like the access note on Home */
+.location {
+  padding: 16px 20px;
+  border-radius: 12px;
+  background: var(--mat-sys-secondary-container);
+  color: var(--mat-sys-on-secondary-container);
+}
+
+.location h3 {
+  margin: 0 0 8px;
+  font: var(--mat-sys-title-medium);
+}
+
+.location p {
+  margin: 0;
+  font: var(--mat-sys-body-large);
+}
+
+.location p + p {
+  margin-top: 4px;
+}
+
+/* ---------- Tablet and up: three contacts in a row ---------- */
+@media (min-width: 768px) {
+  .contact {
+    padding: 40px 24px 56px;
+  }
+
+  .contact h2 {
+    font: var(--mat-sys-headline-medium);
+  }
+
+  .emails {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+}

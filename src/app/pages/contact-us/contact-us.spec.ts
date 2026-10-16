@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { signal } from '@angular/core';
 import { ContactUs } from './contact-us';
+import { ClubInfoService } from '../../service/club-info.service';
 
 describe('ContactUs', () => {
   let component: ContactUs;
@@ -8,6 +10,18 @@ describe('ContactUs', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ContactUs],
+      providers: [
+        // Fake service: no Firestore in unit tests
+        {
+          provide: ClubInfoService,
+          useValue: {
+            contactSignal: signal({
+              enquiryEmails: [],
+              contacts: [{ role: 'Test role', email: 'test@example.com' }],
+            }),
+          },
+        },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ContactUs);
