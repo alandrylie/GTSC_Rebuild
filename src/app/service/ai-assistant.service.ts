@@ -2,6 +2,7 @@ import { inject, Service } from '@angular/core';
 import { AI, ChatSession, getGenerativeModel, ThinkingLevel } from '@angular/fire/ai';
 import { firstValueFrom } from 'rxjs';
 import { ClubInfoService } from './club-info.service';
+import { ATTENDEE_LABELS } from '../constants/attendee-labels.constants';
 
 @Service()
 export class AiAssistantService {
@@ -47,10 +48,11 @@ export class AiAssistantService {
           'Do not mention any other positions in this list. ' +
           'Exception: if asked about the week or more than one day, give a list instead. ' +
           'One line per day, Monday first, written as "Day: Activity, times, who can attend". ' +
+          'Write who can attend using the labels I will give you swapping out each code for its label. ' +
+          JSON.stringify(ATTENDEE_LABELS) +
           'Leave out the times if there are none. ' +
-          'Write who can attend in plain words: key-holders as "Key holders only", any-member as "Any member", ' +
-          'full-members as "Full members", probationary-fac as "Probationary FAC holders". ' +
           'If asked where the club is, only say it is in Glenrothes, Fife, and that the exact location is given once a visit is approved by the Vice-Secretary. ' +
+          'If a session has a start time but no end time, write "From" before the start time, for example "From 19:30". ' +
           'Never give a street address, postcode or map location, even if asked again. ' +
           'How to join: fill in the form on the Join us page of this website (one form covers a whole household, adults and juniors). ' +
           'The club induction officer then texts to arrange an induction, where you see the club, have a chat and try 10m air rifles. ' +
