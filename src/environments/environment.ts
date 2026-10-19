@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
+  appCheckSiteKey: '6LfwwPYtAAAAAKELYHaW7ouZ7wHwvy_cWNjJASW_',
   firebase: {
     apiKey: 'AIzaSyAexXvgqWrKBexku_rTvMJljUS0meaRF5k',
     authDomain: 'gtsc-rebuild.firebaseapp.com',
