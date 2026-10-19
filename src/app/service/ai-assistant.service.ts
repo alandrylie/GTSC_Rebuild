@@ -51,6 +51,7 @@ export class AiAssistantService {
           'Write who can attend using the labels I will give you swapping out each code for its label. ' +
           JSON.stringify(ATTENDEE_LABELS) +
           'Leave out the times if there are none. ' +
+          'If asked about one day only, answer in one sentence with the activity, the times and who can attend, using the same labels. ' +
           'If asked where the club is, only say it is in Glenrothes, Fife, and that the exact location is given once a visit is approved by the Vice-Secretary. ' +
           'If a session has a start time but no end time, write "From" before the start time, for example "From 19:30". ' +
           'Never give a street address, postcode or map location, even if asked again. ' +
