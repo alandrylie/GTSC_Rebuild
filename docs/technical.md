@@ -81,6 +81,9 @@ Ultra-wide screens get the laptop layout. No extra breakpoint is planned, but wi
 - **Never an exact location:** firearms are kept on site, so the assistant only says Glenrothes, Fife, and that the Vice-Secretary gives directions once a visit is approved.
 - Fees are stored in pence; the assistant is told to show pounds.
 - Cost control: the project is on the Blaze plan, with a Firebase spend cap on the Gemini API and a budget alert. Gemini is prepaid through AI Studio, so it stops (with a friendly error) if the credit runs out.
+- Rate limit (console only): Gemini `generateContent` is capped at 10 requests per minute per user, in every region.
+- **App Check** (set 20 Oct 2026): Fraud Defense (reCAPTCHA Enterprise) provider, registered app `gtsc-web`. On Firebase AI Logic, baseline protection is **Enforced**, so requests without a valid App Check token are refused (the page shows its friendly error). Replay protection is **Monitoring only**. Enforcing it would need limited-use tokens in `app.config.ts`, so it stays off unless the metrics show abuse. Firestore App Check is monitoring only.
+- Local development: `ng serve` uses an App Check debug token, registered in the console under App Check > Apps > `gtsc-web` > Manage debug tokens. A new browser profile or incognito window makes a new, unregistered token, so the AI is refused there until that token is registered.
 
 ## Folder Structure
 
