@@ -1,0 +1,20 @@
+/* ---------- Phone first ---------- */
+
+/* A quiet strip at the bottom of every page: small, muted text,
+   with a thin line above it to separate it from the page content */
+:host {
+  display: block;
+  padding: 12px 16px;
+  border-top: 1px solid var(--mat-sys-outline-variant);
+  text-align: center;
+
+  /* Takes up any spare space above it, so on a short page the footer
+     sits at the bottom of the screen instead of straight under the content */
+  margin-top: auto;
+}
+
+p {
+  margin: 0;
+  font: var(--mat-sys-body-small);
+  color: var(--mat-sys-on-surface-variant);
+}

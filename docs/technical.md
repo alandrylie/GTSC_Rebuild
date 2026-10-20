@@ -49,7 +49,8 @@ Ultra-wide screens get the laptop layout. No extra breakpoint is planned, but wi
 - Served from `public/images/`.
 - Photos are WebP at two widths, **800px** (phones) and **1920px** (tablets and laptops). The browser picks one with `srcset`.
 - Full-size masters are kept **outside the repo** (`../gtscAssets/`), so they are never deployed or stored in git history.
-- Stock photos come from Unsplash under the free Unsplash License. The source URL of each one is recorded alongside its master.
+- Stock photos come from Unsplash under the free Unsplash License. Each master has a `<name>.source.txt` beside it with the photo URL and photographer, so keep that file whenever a master is renamed.
+- Hero (`hero-air-pistol-*.webp`): [photo](https://unsplash.com/photos/a-pistol-pellets-and-bullets-on-a-wooden-surface-rxYKk9p2naQ) by [Mehrpouya H](https://unsplash.com/@mehrpouya) on Unsplash.
 - `logo.svg` was traced from the club's original badge in Inkscape. A white backing circle fills the white areas so the badge shows correctly on dark backgrounds.
 
 ### Routing

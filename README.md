@@ -105,15 +105,15 @@ Without them, Firestore either blocks everything or (in test mode) allows everyo
 
 ## Everyday Commands
 
-| Task                | Command                                            |
-| ------------------- | -------------------------------------------------- |
-| Run locally         | `ng serve`, then open `http://localhost:4200/`     |
-| Unit tests          | `ng test` (add `--watch=false` for a single run)   |
-| Lint                | `ng lint`                                          |
-| Format              | `npx prettier --write src`                         |
-| Production build    | `ng build` (output in `dist/gtscRebuild/browser`)  |
-| Check rules compile | `firebase deploy --only firestore:rules --dry-run` |
-| Deploy the site     | `ng build` then `firebase deploy --only hosting`   |
+| Task                | Command                                                                                     |
+| ------------------- | ------------------------------------------------------------------------------------------- |
+| Run locally         | `ng serve`, then open `http://localhost:4200/`                                              |
+| Unit tests          | `ng test` (add `--watch=false` for a single run)                                            |
+| Lint                | `ng lint`                                                                                   |
+| Format              | `npx prettier --write src`                                                                  |
+| Production build    | `npm run build` (stamps the build date in the footer; output in `dist/gtscRebuild/browser`) |
+| Check rules compile | `firebase deploy --only firestore:rules --dry-run`                                          |
+| Deploy the site     | `npm run build` then `firebase deploy --only hosting`                                       |
 
 New Angular files are always made with the CLI, for example `ng generate component pages/range-times` or `ng generate service service/fees --type=service`.
 

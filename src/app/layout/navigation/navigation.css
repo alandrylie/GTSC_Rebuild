@@ -6,6 +6,13 @@ mat-sidenav-container {
   height: 100dvh;
 }
 
+/* A column, so the footer can be pushed to the bottom of short pages
+   (the footer's own CSS does the pushing with margin-top: auto) */
+mat-sidenav-content {
+  display: flex;
+  flex-direction: column;
+}
+
 .drawer {
   width: 280px;
 }
