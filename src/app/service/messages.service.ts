@@ -1,4 +1,4 @@
-import { inject, Service } from '@angular/core';
+import { inject, Service, Injector, runInInjectionContext } from '@angular/core';
 import {
   Firestore,
   addDoc,
@@ -20,10 +20,14 @@ import { serverTimestamp } from '@angular/fire/firestore';
 export class MessagesService {
   private readonly firestore = inject(Firestore);
   private readonly authService = inject(AuthService);
+  private readonly injector = inject(Injector);
   private readonly messageCol = collection(this.firestore, 'roChat');
+
   getMessages$(): Observable<ChatMessage[]> {
-    const q = query(this.messageCol, orderBy('createdAt', 'asc'));
-    return collectionData(q, { idField: 'id' }) as Observable<ChatMessage[]>;
+    return runInInjectionContext(this.injector, () => {
+      const q = query(this.messageCol, orderBy('createdAt', 'asc'));
+      return collectionData(q, { idField: 'id' }) as Observable<ChatMessage[]>;
+    });
   }
   // Restart the live listener whenever the signed-in user changes, so a
   // listener refused by the security rules (e.g. on log out) doesn't stay dead.
@@ -43,14 +47,16 @@ export class MessagesService {
     { initialValue: null },
   );
   addChatMessage(message: NewChatMessage) {
-    return addDoc(this.messageCol, { ...message, createdAt: serverTimestamp() });
+    return runInInjectionContext(this.injector, () =>
+      addDoc(this.messageCol, { ...message, createdAt: serverTimestamp() }),
+    );
   }
 
   deleteChatMessage(id: string) {
-    return deleteDoc(doc(this.messageCol, id));
+    return runInInjectionContext(this.injector, () => deleteDoc(doc(this.messageCol, id)));
   }
 
   updateChatMessage(id: string, changes: Partial<NewChatMessage>) {
-    return updateDoc(doc(this.messageCol, id), changes);
+    return runInInjectionContext(this.injector, () => updateDoc(doc(this.messageCol, id), changes));
   }
 }

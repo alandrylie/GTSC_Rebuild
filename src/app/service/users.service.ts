@@ -1,4 +1,4 @@
-import { inject, Service } from '@angular/core';
+import { inject, Injector, runInInjectionContext, Service } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Firestore, doc, docData } from '@angular/fire/firestore';
 import { Observable, catchError, of, switchMap } from 'rxjs';
@@ -9,6 +9,7 @@ import { UserProfile } from '../model/user-profile';
 export class UsersService {
   private readonly firestore = inject(Firestore);
   private readonly authService = inject(AuthService);
+  private readonly injector = inject(Injector);
 
   // The signed-in person's users/{uid} doc. Follows log in / log out like the chat listener.
   // null = signed out (or not loaded yet), undefined = no users doc for this account.
@@ -29,6 +30,9 @@ export class UsersService {
   );
 
   private getProfile$(uid: string) {
-    return docData(doc(this.firestore, 'users', uid)) as Observable<UserProfile | undefined>;
+    return runInInjectionContext(
+      this.injector,
+      () => docData(doc(this.firestore, 'users', uid)) as Observable<UserProfile | undefined>,
+    );
   }
 }
