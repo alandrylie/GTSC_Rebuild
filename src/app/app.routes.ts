@@ -26,6 +26,16 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/login/login').then((m) => m.Login),
   },
   {
+    path: APP_ROUTES.forgotPassword,
+    loadComponent: () =>
+      import('./pages/forgot-password/forgot-password').then((m) => m.ForgotPassword),
+  },
+  {
+    path: APP_ROUTES.resetPassword,
+    loadComponent: () =>
+      import('./pages/reset-password/reset-password').then((m) => m.ResetPassword),
+  },
+  {
     path: APP_ROUTES.clubArea,
     loadComponent: () => import('./pages/club-area/club-area').then((m) => m.ClubArea),
     canActivate: [authGuard],

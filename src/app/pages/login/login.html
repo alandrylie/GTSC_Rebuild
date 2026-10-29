@@ -19,4 +19,5 @@
   @if (errorMessage()) {
     <p role="alert">{{ errorMessage() }}</p>
   }
+  <a class="form-link" [routerLink]="['/', routes.forgotPassword]">Forgot password?</a>
 </form>

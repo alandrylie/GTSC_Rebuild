@@ -132,6 +132,23 @@ Club info in Firestore is the single source of truth. Both the pages and the AI 
 - `UsersService` reads the signed-in person's own `users/{uid}` document (`profileSignal`).
 - Access is role-based. A person's `position[]` decides what they can do.
 - Live listeners (chat messages, profile) restart whenever the signed-in user changes (`user$` + `switchMap`). Without that, logging out and in as someone else leaves a listener the rules refused, until the page is refreshed.
+- No self sign-up. Accounts are created in the Firebase console, then the member sets their own password with **Forgot password?**
+
+### Password reset (29 Oct)
+
+- **Forgot password** (`/forgot-password`): `AuthService.resetPassword()` sends Firebase's reset email. The page shows the same message whether or not the email has an account, so it can't be used to find out who is a member. The link carries a continue URL back to `/login`.
+- **Reset page** (`/reset-password`): our own page replaces Firebase's hosted one. It checks the link code (`verifyPasswordResetCode`), shows a live checklist from the console policy (`validatePassword`), then saves (`confirmPasswordReset`). Firebase error codes map to friendly messages in `reset-password-errors.constants.ts`.
+- Why our own page: Firebase's page lives on `gtsc-rebuild.firebaseapp.com`, so password managers saved the new password against the wrong site, and its policy errors showed raw `[ ]` lists.
+- Reset links last **1 hour** (fixed by Firebase, can't be changed). Requesting a new link cancels older ones.
+- Login, forgot and reset pages share `src/app/shared/auth-card.css`.
+
+### Console settings (Authentication)
+
+- **Password policy** (Settings → Password policy): Require enforcement, uppercase + lowercase + number + symbol, minimum 8, force upgrade on sign-in. The reset page checklist reads this policy, so changing it here updates the page with no code change.
+- **Action URL** (Templates → Password reset → Customise action URL): `https://new.gtsc.co.uk/reset-password`. Set it only after the reset page is deployed. To test on localhost, swap the start of an emailed link for `http://localhost:4200/reset-password` and keep the `?…` part.
+- **Email enumeration protection** (Settings → User actions): should be on.
+- **Authorised domains:** localhost, `gtsc-rebuild.web.app`, `new.gtsc.co.uk`, `gtsc.co.uk`. The continue URL and action URL must be on this list.
+- **Parked:** custom email domain (`gtsc.co.uk`, 4 DNS records at IONOS) until the site moves to `gtsc.co.uk`. The SPF record must be merged with the existing IONOS one, never added as a second SPF record.
 
 ## Security Rules
 

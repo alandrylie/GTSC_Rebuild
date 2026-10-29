@@ -2,18 +2,19 @@ import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../service/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { APP_ROUTES } from '../../constants/app-routes.constants';
 
 @Component({
-  imports: [ReactiveFormsModule, MatButtonModule],
+  imports: [ReactiveFormsModule, MatButtonModule, RouterLink],
   selector: 'app-login',
-  styleUrl: './login.css',
+  styleUrl: '../../shared/auth-card.css',
   templateUrl: './login.html',
 })
 export class Login {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
+  protected readonly routes = APP_ROUTES;
   errorMessage = signal('');
   loginForm = new FormGroup({
     email: new FormControl('', {

@@ -6,6 +6,8 @@ export const APP_ROUTES = (() => {
     join: 'join-us',
     contact: 'contact-info',
     login: 'login',
+    forgotPassword: 'forgot-password',
+    resetPassword: 'reset-password',
     clubArea: 'club-area',
     roChat: 'ro-chat',
     askQuestion: 'ask-question',
