@@ -18,7 +18,7 @@ export const routes: Routes = [
   {
     path: APP_ROUTES.join,
     loadComponent: () => import('./pages/join-us/join-us').then((m) => m.JoinUs),
-    title: 'Join us | G.T.S.C',
+    title: 'Join Us | G.T.S.C',
   },
   {
     path: APP_ROUTES.contact,
