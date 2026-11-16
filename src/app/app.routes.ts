@@ -59,7 +59,7 @@ export const routes: Routes = [
     path: APP_ROUTES.askQuestion,
     loadComponent: () =>
       import('./pages/gtsc-ai-assistant/gtsc-ai-assistant').then((m) => m.GtscAiAssistant),
-    title: 'AI chat bot | G.T.S.C',
+    title: 'As Questions! | G.T.S.C',
   },
   { path: '**', redirectTo: APP_ROUTES.home },
 ];
