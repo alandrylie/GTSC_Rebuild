@@ -32,8 +32,11 @@ app-chat-message-create {
 /* ---------- Tablet and up ---------- */
 @media (min-width: 768px) {
   /* Keep the chat a readable width on wide screens.
+     width: 100% is needed because the page sits in a flex column, and auto
+     side margins there shrink it to fit its content; max-width caps it at 800px.
      The toolbar is 64px tall from here up. */
   :host {
+    width: 100%;
     max-width: 800px;
     margin: 0 auto;
     padding: 24px;
