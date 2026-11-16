@@ -23,6 +23,19 @@ For what the site does and why, see [docs/product.md](docs/product.md). For how 
 | Tests      | Vitest (jsdom) through the Angular unit-test builder               |
 | Code style | angular-eslint, Prettier                                           |
 
+## Accessibility
+
+I built the site so everyone can use it, including people on a phone, a keyboard or a screen reader.
+
+- **Mobile-first:** every page is designed for phones first, then widened for bigger screens, so nothing needs pinch-zooming.
+- **Clear structure:** the page language is set (`lang="en"`), and the club name is the one main heading, with page headings below it.
+- **Labelled forms:** every input has a label linked to it. On the Join us form, each Yes/No question is tied to its radio buttons with `aria-labelledby`, so a screen reader reads the question with the choice.
+- **Messages are read out:** errors use `role="alert"`, and success messages (enquiry ready, reset email sent, password changed) use `role="status"`, so screen readers announce them straight away.
+- **Password rules you can hear:** the tick icons are hidden from screen readers and replaced by hidden text, "(done)" or "(not yet)". The password box points to the rules list with `aria-describedby`.
+- **Images and icons:** the hero photo is decorative, so it has an empty `alt` and is skipped. The club badge has a proper description. Decorative icons are hidden with `aria-hidden`, and the message options button in the chat has an `aria-label`.
+- **Keyboard support:** Angular Material gives menus, the side nav, radio buttons and form fields keyboard control and a visible focus outline.
+- **Fast on slow connections:** the hero photo comes in two sizes, so phones download the small one, and every page except Home loads only when it is needed.
+
 ## Prerequisites
 
 - **Node.js 24** or newer (built with 24.18)
