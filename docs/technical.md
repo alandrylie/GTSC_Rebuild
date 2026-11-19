@@ -145,10 +145,10 @@ Club info in Firestore is the single source of truth. Both the pages and the AI 
 ### Console settings (Authentication)
 
 - **Password policy** (Settings → Password policy): Require enforcement, uppercase + lowercase + number + symbol, minimum 8, force upgrade on sign-in. The reset page checklist reads this policy, so changing it here updates the page with no code change.
-- **Action URL** (Templates → Password reset → Customise action URL): `https://new.gtsc.co.uk/reset-password`. Set it only after the reset page is deployed. To test on localhost, swap the start of an emailed link for `http://localhost:4200/reset-password` and keep the `?…` part.
+- **Action URL** (Templates → Password reset → Customise action URL): `https://gtsc.co.uk/reset-password` (IONOS sends it on to `www.`). Set it only after the reset page is deployed. To test on localhost, swap the start of an emailed link for `http://localhost:4200/reset-password` and keep the `?…` part.
 - **Email enumeration protection** (Settings → User actions): should be on.
-- **Authorised domains:** localhost, `gtsc-rebuild.web.app`, `new.gtsc.co.uk`, `gtsc.co.uk`. The continue URL and action URL must be on this list.
-- **Parked:** custom email domain (`gtsc.co.uk`, 4 DNS records at IONOS) until the site moves to `gtsc.co.uk`. The SPF record must be merged with the existing IONOS one, never added as a second SPF record.
+- **Authorised domains:** localhost, `gtsc-rebuild.web.app`, `new.gtsc.co.uk`, `gtsc.co.uk`, `www.gtsc.co.uk`. The continue URL and action URL must be on this list.
+- **Custom email domain:** emails come from `gtsc@auth.gtsc.co.uk` (sender name "Web Admin"), reply-to `enquiries@gtsc.co.uk`. The SPF record must be merged with the existing IONOS one, never added as a second SPF record.
 
 ## Security Rules
 
@@ -167,3 +167,46 @@ Anything in a publicly readable document can be read by anyone through the Fires
 - Firebase Hosting (main). An IONOS subdomain is the preferred submission address if it works.
 - The site is a **single-page application**: the browser loads one `index.html`, and Angular's router swaps page components in and out without a full reload.
 - **Deploy note:** answer "yes" to _"Configure as a single-page app?"_ during `firebase init hosting`. It adds a rewrite that sends every URL to `index.html`, so refreshing on a page like `/range-times` works instead of returning a 404.
+
+### Move to gtsc.co.uk (19 Nov)
+
+The committee approved the new site as the main club site on 17 Nov. On 19 Nov the old site's files were removed from the IONOS main folder and the `npm run build` output (`dist/gtscRebuild/browser`) was uploaded in their place. The `.htaccess` in the main folder is now the single-page app rewrite (every address that isn't a real file loads `index.html`).
+
+**Issue found in testing: `www.` was not on the API key list**
+
+- **What happened:** the pages loaded, but the AI assistant, login and password reset all failed. The Join us form (which doesn't use Firebase) worked.
+- **Cause:** IONOS sends visitors to `https://www.gtsc.co.uk`. The browser hides `www.` in the address bar, so it looked like `gtsc.co.uk`. The Google Cloud API key's website restrictions listed `https://gtsc.co.uk/*` but not the `www.` version, and Google treats them as different websites, so every Firebase request from the page was refused.
+- **How it was found:** copying the real address from the address bar showed `www.`. Comparing it with `new.gtsc.co.uk` (working, and on the list) confirmed it.
+- **Fix:** added `https://www.gtsc.co.uk/*` to the API key's website restrictions, and `www.gtsc.co.uk` to the Firebase Auth authorised domains. A page opened before the fix keeps its error until it is refreshed, and the key change can take up to 5 minutes.
+- **Lesson:** when something works on one domain but not another, copy the full address from each and compare them. Every domain the site runs on (with and without `www.`) must be on the API key list and the Auth authorised domains.
+
+## Manual Testing
+
+Unit tests (`npx ng test`) check the code. Manual tests check the real site in a real browser, after each go-live or big change. Test in a normal window **and** an incognito window (no saved logins, cache or tokens).
+
+### Go-live on gtsc.co.uk (19 Nov)
+
+Build: 19 Nov 2026, 09:54 (`main-NSCVMNFJ.js`), tested on `https://www.gtsc.co.uk`.
+
+| #     | Test                                                  | Result                                              |
+| ----- | ----------------------------------------------------- | --------------------------------------------------- |
+| 1     | Responsive layout                                     | Pass                                                |
+| 2     | All pages load and show the right build date          | Pass                                                |
+| 3     | AI assistant answers a logged-out visitor             | **Fail**: refused after 4 tries and a reload        |
+| 4     | Tests 1–3 again in incognito                          | Same as above                                       |
+| 5     | Join us enquiry in incognito                          | Pass: email received                                |
+| 6     | Log in with a saved profile                           | **Fail**: "incorrect password"                      |
+| 7     | Password reset                                        | **Fail**: "Something went wrong sending the email." |
+| —     | _Fix: `www.` added to the API key list (see Hosting)_ |                                                     |
+| 8     | AI assistant, same page as before the fix             | Fail: page still held the old error                 |
+| 9     | Refresh, then AI assistant                            | Pass                                                |
+| 10    | AI assistant in a new incognito window                | Fail: likely the 5-minute key update                |
+| 11    | Refresh (F5), then AI assistant                       | Pass                                                |
+| 12    | Log in, incognito                                     | Pass                                                |
+| 13    | Log in, normal window                                 | Pass                                                |
+| —     | RO chat CRUD, normal and incognito                    | Pass                                                |
+| 14–15 | Logged out, go straight to `/club-area`               | Pass: sent to the login page (both windows)         |
+| —     | Password reset, normal and incognito                  | Pass                                                |
+| —     | Password reset after `gtsc-new` was deleted           | Pass                                                |
+
+**Result:** all features pass on the live site. The only fault was the missing `www.` domain, a console setting, not a code bug.

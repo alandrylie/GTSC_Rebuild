@@ -165,6 +165,13 @@ I built this project with **Claude Code** (Anthropic's AI coding assistant) set 
 - **Whole project: about 45% me, 55% Claude.**
 - **Leaving out the CSS: about 64% me, 36% Claude.**
 
+**Update, 19 Nov** (recount on `main`, 4,311 non-blank lines in `src/`):
+
+- **Unit tests:** I wrote about 35–40% of the behaviour tests with coaching. As the hand-in deadline approached, I handed the rest to Claude.
+- **CSS:** still all Claude (1,125 lines).
+- **Whole project: about 46% me, 54% Claude.**
+- **Leaving out the CSS: about 62% me, 38% Claude.**
+
 The gap is the CSS: about 1,060 lines, all written by Claude. I chose to hand styling to the AI so my own time went on the application logic: services, auth, CRUD, the AI assistant, forms and page logic. I still set the look and feel (mobile-first, slate toolbar, card style, nav layout); Claude turned my brief into CSS in seconds. The same goes for the docs. The decisions in them (role-based access, a public AI assistant, no stored applications, no published address) are mine, and the AI wrote them up.
 
 ### My Thoughts on Using AI
