@@ -1,0 +1,29 @@
+<section class="ro-rota">
+  <h2>RO Rota</h2>
+  @if (sessions(); as sessions) {
+    <div class="sessions">
+      @for (session of sessions; track session.id) {
+        <article class="session" [class.closed]="session.closed">
+          <h3>{{ session.date | date: 'EEE d MMM' }}</h3>
+          <p class="discipline">{{ disciplineLabels[session.discipline] ?? session.discipline }}</p>
+
+          @if (session.closed) {
+            <p class="status">Club closed</p>
+          } @else {
+            <ul class="ros">
+              @for (ro of session.ros; track $index) {
+                <li>{{ ro.name }}</li>
+              }
+            </ul>
+            <!-- Swap template: not wired up yet. Add (click) when swaps are built. -->
+            <button matButton="outlined" class="swap" disabled>Request swap</button>
+          }
+        </article>
+      } @empty {
+        <p>No rota sessions yet.</p>
+      }
+    </div>
+  } @else {
+    <p>Loading rota...</p>
+  }
+</section>

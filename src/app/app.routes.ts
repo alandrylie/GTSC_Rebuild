@@ -56,6 +56,12 @@ export const routes: Routes = [
     title: 'Ro chat | G.T.S.C',
   },
   {
+    path: APP_ROUTES.roRota,
+    loadComponent: () => import('./pages/ro-rota/ro-rota').then((m) => m.RoRota),
+    canActivate: [authGuard],
+    title: 'RO Rota | G.T.S.C',
+  },
+  {
     path: APP_ROUTES.askQuestion,
     loadComponent: () =>
       import('./pages/gtsc-ai-assistant/gtsc-ai-assistant').then((m) => m.GtscAiAssistant),

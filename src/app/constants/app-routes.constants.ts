@@ -10,6 +10,7 @@ export const APP_ROUTES = (() => {
     resetPassword: 'reset-password',
     clubArea: 'club-area',
     roChat: 'ro-chat',
+    roRota: 'ro-rota',
     askQuestion: 'ask-question',
   };
   return Object.freeze(routes);

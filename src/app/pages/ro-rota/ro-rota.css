@@ -1,0 +1,103 @@
+/* ---------- Phone first ---------- */
+
+/* One centred column, same width and padding as Range Times */
+.ro-rota {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 1000px;
+  margin-inline: auto;
+  padding: 24px 16px 40px;
+}
+
+.ro-rota h2 {
+  margin: 0;
+  font: var(--mat-sys-headline-small);
+}
+
+/* Loading and "no sessions" text */
+.ro-rota p {
+  margin: 0;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+/* The session cards, stacked on phones */
+.sessions {
+  display: grid;
+  gap: 16px;
+}
+
+/* One card per session, matching the Range Times cards (slate stripe on the left).
+   Flex column so the swap button can sit at the bottom of every card. */
+.session {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 20px;
+  border-left: 4px solid var(--mat-sys-primary);
+  border-radius: 12px;
+  background: var(--mat-sys-surface-container-low);
+  color: var(--mat-sys-on-surface);
+  box-shadow: var(--mat-sys-level1);
+}
+
+/* The date is the card title */
+.session h3 {
+  margin: 0;
+  font: var(--mat-sys-title-large);
+  color: var(--mat-sys-primary);
+}
+
+.session .discipline {
+  font: var(--mat-sys-label-large);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* RO names: plain list, one per line */
+.ros {
+  margin: 4px 0 12px;
+  padding: 0;
+  list-style: none;
+  font: var(--mat-sys-body-large);
+}
+
+/* margin-top: auto pushes the button to the bottom, so buttons line up across a row */
+.swap {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+/* Closed nights: muted card with the error colour stripe */
+.session.closed {
+  border-left-color: var(--mat-sys-error);
+  background: var(--mat-sys-surface-container);
+}
+
+.session .status {
+  font: var(--mat-sys-body-large);
+  color: var(--mat-sys-error);
+}
+
+/* ---------- Tablet and up: two cards per row ---------- */
+@media (min-width: 768px) {
+  .ro-rota {
+    padding: 40px 24px 56px;
+  }
+
+  .ro-rota h2 {
+    font: var(--mat-sys-headline-medium);
+  }
+
+  .sessions {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+/* ---------- Laptop and up: three cards per row ---------- */
+@media (min-width: 1024px) {
+  .sessions {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

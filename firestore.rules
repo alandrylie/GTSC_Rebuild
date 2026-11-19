@@ -16,13 +16,13 @@ service cloud.firestore {
     }
 
     // is true if signed in and person has chat role in users {uid} under position field.
-    function hasChatRole(){
+    function hasRangeOfficer(){
         return request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.position.hasAny(['range-officer', 'web-admin']);
     }
     // Only users with the above roles can access & write to roChat.
     match /roChat/{messageId} {
-        allow read: if hasChatRole();
-        allow create: if hasChatRole()
+        allow read: if hasRangeOfficer();
+        allow create: if hasRangeOfficer()
         && request.resource.data.authorUid == request.auth.uid
         && request.resource.data.keys().hasOnly(['text', 'authorUid', 'authorName', 'createdAt'])
         && request.resource.data.text is string
@@ -30,16 +30,23 @@ service cloud.firestore {
         && request.resource.data.text.size() <= 500
         && request.resource.data.createdAt == request.time;
 
-        allow update: if hasChatRole()
+        allow update: if hasRangeOfficer()
         && request.resource.data.authorUid == request.auth.uid
         && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['text'])
         && request.resource.data.text is string
         && request.resource.data.text.size() > 0
         && request.resource.data.text.size() <= 500;
 
-        allow delete: if hasChatRole()
+        allow delete: if hasRangeOfficer()
         && resource.data.authorUid == request.auth.uid;
 
     }
+ // Only users with the RO role or web admin can see the rota. 
+   match /roRota/{sessionId} {
+    allow read: if hasRangeOfficer();
+    allow write: if false;
+   }
+
+
   }
 }
