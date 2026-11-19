@@ -164,7 +164,9 @@ Anything in a publicly readable document can be read by anyone through the Fires
 
 ## Hosting
 
-- Firebase Hosting (main). An IONOS subdomain is the preferred submission address if it works.
+- **Live site:** `https://www.gtsc.co.uk`, on IONOS webspace. Upload the contents of `dist/gtscRebuild/browser` (from `npm run build`) to the main folder with WiseFTP, and keep the `.htaccess` file.
+- **Copy:** Firebase Hosting at `gtsc-rebuild.web.app` (`firebase deploy --only hosting`).
+- The `new.gtsc.co.uk` subdomain folder was deleted on 19 Nov after the move.
 - The site is a **single-page application**: the browser loads one `index.html`, and Angular's router swaps page components in and out without a full reload.
 - **Deploy note:** answer "yes" to _"Configure as a single-page app?"_ during `firebase init hosting`. It adds a rewrite that sends every URL to `index.html`, so refreshing on a page like `/range-times` works instead of returning a 404.
 

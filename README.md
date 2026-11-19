@@ -2,6 +2,8 @@
 
 A modern, mobile-first website for Glenrothes Target Shooting Club (GTSC), built as a bootcamp final project. It replaces the club's 2017 template site.
 
+**Live at [gtsc.co.uk](https://www.gtsc.co.uk).** The club committee approved it as the main club site on 17 Nov 2026. A copy also runs on Firebase Hosting at [gtsc-rebuild.web.app](https://gtsc-rebuild.web.app).
+
 **Features**
 
 - **AI club assistant (public):** answers questions about range times, fees, the committee and how to join, using Gemini through Firebase AI Logic and live club data from Firestore.
