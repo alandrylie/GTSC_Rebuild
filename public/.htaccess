@@ -1,0 +1,9 @@
+# Angular single-page app: real files load as normal,
+# every other address (e.g. /reset-password, /club-area) loads index.html
+# so Angular's router can show the right page.
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.html$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.html [L]

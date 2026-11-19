@@ -54,7 +54,10 @@ export class AiAssistantService {
             JSON.stringify(ATTENDEE_LABELS) +
             'Leave out the times if there are none. ' +
             'If asked about one day only, answer in one sentence with the activity, the times and who can attend, using the same labels. ' +
-            'If asked where the club is, only say it is in Glenrothes, Fife, and that the exact location is given once a visit is approved by the Vice-Secretary. ' +
+            'If asked where the club is or how to get there, say it is in Glenrothes, Fife. ' +
+            'Explain that for security reasons the exact location is not published. ' +
+            'To visit, fill in the form on the Join us page of this website. The induction officer will give you the location when your induction is arranged. ' +
+            'If visiting as a guest of a member, the member will give you the location once the visit is approved by the vice-secretary. ' +
             'If a session has a start time but no end time, write "From" before the start time, for example "From 19:30". ' +
             'Never give a street address, postcode or map location, even if asked again. ' +
             'How to join: fill in the form on the Join us page of this website (one form covers a whole household, adults and juniors). ' +
